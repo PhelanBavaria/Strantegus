@@ -16,13 +16,16 @@ class World:
     origin = (0, 0)
     current_turn = 0
     current_tick = 0
+    day = 0
     last_tick = 0
-    players = {}
     entities = Entity._entities
     objects = Object._objects
-    out_ants = pygame.sprite.Group()
-    scents = pygame.sprite.Group()
-    events = {}
+
+    def __init__(self):
+        self.out_ants = pygame.sprite.Group()
+        self.scents = pygame.sprite.Group()
+        self.players = {}
+        self.events = {}
 
     def setup(self, setup):
         print('setting up world')
@@ -44,6 +47,8 @@ class World:
             if self.current_tick in self.events.keys():
                 for event in self.events[self.current_tick]:
                     event()
+            if self.current_tick % config.TICKS_PER_DAY == 0:
+                self.day += 1
             self.current_tick += 1
 
     def add_event(self, event, turn):

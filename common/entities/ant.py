@@ -17,8 +17,8 @@ class Ant(Entity):
     colony = None
     size = 1
     strength = 2
+    lifespan = (100, 1000)
     smell_timer = 0
-    ressource = None
     behaviour = 'rest'
     colliding_enemies = ()
 
@@ -38,7 +38,10 @@ class Ant(Entity):
 
     def update(self):
         ticks_passed = self.world.current_tick - self.init_tick
-        if ticks_passed % config.TICKS_PER_DAY == 0:
+        if self.age > random.randint(*self.lifespan):
+            self.kill()
+            return
+        elif ticks_passed % config.TICKS_PER_DAY == 0:
             self.age += 1
         self.behave_check()
         self.behaviours[self.behaviour](self)

@@ -9,9 +9,11 @@ from common.behaviours import store
 class Worker(Ant):
     def __init__(self, world, nation, scent=None):
         Ant.__init__(self, world, nation, scent)
+        self.lifespan = (100, 365)
         self.behaviours['scout'] = scout.default
         self.behaviours['store'] = store.default
         self.behaviour = 'scout'
+        self.on_trail = False
 
     def behave_check(self):
         if self.inside:
@@ -26,7 +28,7 @@ class Worker(Ant):
                          in zip(base, self.rect.center)]
             self.ressource.rect.center = res_coord
             self.behaviour = 'return_home'
-        elif 1 == random.randint(1, 1000):
+        elif not self.on_trail and 1 == random.randint(1, 1000):
             self.behaviour = 'return_home'
         elif not self.behaviour:
             self.behaviour = 'scout'

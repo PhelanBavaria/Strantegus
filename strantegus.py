@@ -19,7 +19,7 @@ if __name__ == '__main__':
             'red': species.normal['red'](world)
         },
         'map_size': (25, 15),
-        'seed': 111
+        'seed': 333
     }
     world.setup(setup)
 
@@ -39,10 +39,12 @@ if __name__ == '__main__':
                 gui.draw(world.scents)
             gui.draw(world.objects)
             gui.draw(world.out_ants)
+            info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
             info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
             info_scent_tally = gui.font.render('Scent Tally:' + str(len(world.scents)), 1, ((10, 10, 10)))
-            gui.draw_info(info_current_tick, (10, 10))
-            gui.draw_info(info_scent_tally, (10, 20))
+            gui.draw_info(info_current_day, (10, 10))
+            gui.draw_info(info_current_tick, (10, 20))
+            gui.draw_info(info_scent_tally, (10, 30))
             gui.draw()
             gui.update()
             gui.check_events()

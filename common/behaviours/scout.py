@@ -5,6 +5,7 @@ from util.randop import weighted_choice
 from pygame.sprite import spritecollide
 from pygame.sprite import collide_rect
 from common.scents import AntScent
+from common.ressources import ressources as default_ressources
 
 
 def default(ant):
@@ -37,6 +38,7 @@ def default(ant):
         return any((direct, left, right))
 
     def biased_random(scents):
+        # ToDo: add favor of straight routes
         weights = []
         for scent in scents:
             weights.append(scent.amount)
@@ -53,28 +55,32 @@ def default(ant):
     ressources = spritecollide(ant, ant.world.map.ressources, False)
     scents = spritecollide(ant, ant.world.scents, False)
     # ToDo: would combining filters reduce lag?
+    # ToDo: get random pixel of each scent into a list
+    #       then run filters on that list
     scents = filter(only_updated, scents)
     scents = filter(only_allies, scents)
     scents = filter(only_ressource, scents)
     scents = filter(only_in_los, scents)
+    scents = tuple(scents)
     if ressources:
         res = ressources[0]
         amount = min(ant.strength, res.amount)
         res.amount -= amount
-        ant.ressource = res.__class__(ant.world, amount)
-    elif tuple(scents):
-        print(bool(tuple(scents)))
+        ant.ressource = default_ressources[res.name](ant.world, amount)
+    elif scents:
+        ant.on_trail = True
         scent = biased_random(scents)
-        print(scent)
-        ant.move(scent)
+        ant.move(scent.rect.center)
         if not ant.world.current_tick % 20:
             AntScent(ant, 'search')
     elif 1 == random.randint(1, 5):
+        ant.on_trail = False
         ant.rand_rotate()
         ant.move()
         if not ant.world.current_tick % 20:
             AntScent(ant, 'search')
     else:
+        ant.on_trail = False
         ant.move()
         if not ant.world.current_tick % 20:
             AntScent(ant, 'search')
