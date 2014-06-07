@@ -14,11 +14,10 @@ class World:
     map = None
     spt = 0.05  # seconds per turn
     origin = (0, 0)
-    colonies = {}
-    last_tick = time()
-    real_tps = 0
     current_turn = 0
     current_tick = 0
+    last_tick = 0
+    players = {}
     entities = Entity._entities
     objects = Object._objects
     out_ants = pygame.sprite.Group()
@@ -30,10 +29,7 @@ class World:
         random.seed(setup['seed'])
         self.map = WorldMap()
         self.map.create(*setup['map_size'])
-        for name, species in setup['players'].items():
-            colony = species.colony_type(self, species, setup['start_ant_tally'])
-            self.map.add_structure(colony)
-            self.colonies[colony.scent] = colony
+        self.players = setup['players']
         print('setting up world done')
 
     def turn(self):
@@ -42,15 +38,8 @@ class World:
         if spt >= 1/config.TPS:
             self.real_tps = round(1/spt)
             self.last_tick = time()
-            self.out_ants.empty()
-            for scent, colony in self.colonies.items():
-                colony.act()
-                for ant_scent, ant in colony.out_ants.items():
-                    self.out_ants.add(ant)
             self.map.update()
             self.entities.update()
-            # if self.current_tick%10 == 0:
-            #     self.scents.update()
             self.map.ressources.update()
             if self.current_tick in self.events.keys():
                 for event in self.events[self.current_tick]:

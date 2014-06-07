@@ -2,12 +2,10 @@
 
 import random
 from species import BaseSpecies
-from common.colonies.dirt import Colony
-from common.entities import Queen as Leader
-from common.entities import Ant
+from common import entities
 
 
-class FireAnt(Ant):
+class Media(entities.Worker):
     color = (155, 15, 15)
 
     def is_enemy(self, entity):
@@ -16,6 +14,10 @@ class FireAnt(Ant):
         return not (own_colony or is_dead)
 
 
+class Larvae(entities.Larvae):
+    def hatching_type(self):
+        return Media
+
 
 class Red(BaseSpecies):
-    default_ant_type = FireAnt
+    larvae_type = Larvae

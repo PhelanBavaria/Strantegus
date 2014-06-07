@@ -6,9 +6,10 @@ import config
 
 class Scent(pygame.sprite.Sprite):
     color = (120, 120, 120)
+
     def __init__(self, ant, amount):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((1, 1))
+        self.image = pygame.Surface((amount, amount))
         self.image.convert()
         self.image.set_alpha(min(255, amount))
         self.image.fill(self.color)

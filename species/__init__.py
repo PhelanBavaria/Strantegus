@@ -7,7 +7,9 @@ normal = {
     'brown': brown.Brown,
     'red': red.Red,
     'orange': None,
-    'leavecutter': None
+    'leavecutter': None,
+    'honeypot': None,
+    'driver': None
 }
 elemental = {
     'earth': None,  #

@@ -2,7 +2,8 @@
 
 import random
 
-def weighted_choice(weights):
+
+def weighted_choice(weights, choices):
     totals = []
     running_total = 0
 
@@ -13,4 +14,4 @@ def weighted_choice(weights):
     rnd = random.random() * running_total
     for i, total in enumerate(totals):
         if rnd < total:
-            return i
+            return choices[i]

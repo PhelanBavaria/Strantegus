@@ -1,29 +1,27 @@
 
 
+from config import TILE_SIZE
 from util.id_generator import id_generator
 from common.colonies.dirt import Colony
+from common.entities import Larvae
 from common.entities import Queen
 from common.entities import Ant
+
 
 class BaseSpecies:
     colony_type = Colony
     leader_type = Queen
     governor_type = Queen
-    default_ant_type = Ant
+    larvae_type = Larvae
     leader = None
-    colonies = []
 
-    def establish_colony(self, coords, world):
-        colony = self.colony_type(self, world)
-        colony.coords = coords
-        if not self.colonies:
-            self.leader = self.leader_type(world)
-            colony.leader = self.leader
-        else:
-            colony.leader = governor_type()
+    def __init__(self, world):
+        self.scent = id_generator()
+        self.leader = self.leader_type(world, self)
+        self.colonies = []
+
+    def establish_colony(self, coords, world, leader):
+        colony = self.colony_type(world, leader)
+        colony.rect.topleft = coords[0] * TILE_SIZE, coords[1] * TILE_SIZE
+        colony.leader.rect.center = colony.rect.center
         self.colonies.append(colony)
-
-    def act(self):
-        for colony in self.colonies:
-            colony.act()
-            colony.spawn()
