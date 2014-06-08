@@ -2,6 +2,9 @@
 import sys
 from time import time
 import config
+import util
+import technologies
+import gui
 
 
 if __name__ == '__main__':

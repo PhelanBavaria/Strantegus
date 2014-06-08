@@ -1,8 +1,8 @@
 
 
+import pygame
 from common.tiles.base import Tile
 from util.load import load_image
-import pygame
 
 
 class Grass(Tile):

@@ -9,7 +9,7 @@ class GUI:
     pygame.init()
     pygame.display.set_caption('Strantegus')
     screen = pygame.display.set_mode((1000, 500))
-    icon = load_image('ant.jpg')
+    icon = pygame.image.load('gfx/ant.jpg').convert_alpha()
     pygame.display.set_icon(icon)
     background = pygame.Surface(screen.get_size())
     background = background.convert()
@@ -18,7 +18,7 @@ class GUI:
     pygame.display.flip()
     elements = pygame.sprite.Group()
     clickables = pygame.sprite.Group()
-    font = pygame.font.Font(None, 20)
+    font = pygame.font.Font('fonts/freesansbold.ttf', 10)
     exit = False
 
     def draw(self, elements=None):

@@ -4,8 +4,7 @@ import os
 import pygame
 from pygame.locals import RLEACCEL
 
-main_dir = os.path.split(os.path.abspath(__file__))[0].replace('\\util', '')
-gfx_path = os.path.join(main_dir, 'gfx')
+gfx_path = os.path.join(os.getcwd(), 'gfx')
 
 def load_image(name, colorkey=None):
     path = os.path.join(gfx_path, name)
@@ -13,7 +12,7 @@ def load_image(name, colorkey=None):
         image = pygame.image.load(path)
     except pygame.error:
         print('Cannot load image:', path)
-        return
+        return 'test'
     #image = image.convert()
     if colorkey is not None:
         if colorkey is -1:
