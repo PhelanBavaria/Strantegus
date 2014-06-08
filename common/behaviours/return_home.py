@@ -10,5 +10,5 @@ def direct(ant):
         ant.colony.enter(ant)
     else:
         ant.move(ant.colony.rect.center)
-        if ant.ressource and not ant.world.current_tick % 4:
-            AntScent(ant, 'ressource')
+        if ant.resource and not ant.world.current_tick % 4:
+            AntScent(ant, 'resource')

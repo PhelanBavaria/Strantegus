@@ -17,7 +17,7 @@ class Entity(pygame.sprite.Sprite):
     age = -85
     strength = 2
     stamina = 10
-    ressource = None
+    resource = None
 
     _entities = pygame.sprite.Group()
     _degree_to_rel = {
@@ -89,11 +89,11 @@ class Entity(pygame.sprite.Sprite):
             self.rect.top = 0
         if oob_right or oob_bottom or oob_left or oob_top:
             self.rand_rotate(full_spin=True, forward=False)
-        if self.ressource:
+        if self.resource:
             rel_pos = self._degree_to_rel[self.rotation]
             new_x = rel_pos[0] * self.size + self.rect.center[0]
             new_y = rel_pos[1] * self.size + self.rect.center[1]
-            self.ressource.rect.center = (new_x, new_y)
+            self.resource.rect.center = (new_x, new_y)
 
     def attack(self, enemy):
         enemy.get_hurt(self.strength)

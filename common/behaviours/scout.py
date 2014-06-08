@@ -5,7 +5,7 @@ from util.randop import weighted_choice
 from pygame.sprite import spritecollide
 from pygame.sprite import collide_rect
 from common.scents import AntScent
-from common.ressources import ressources as default_ressources
+from common.resources import resources as default_resources
 
 
 def default(ant):
@@ -16,8 +16,8 @@ def default(ant):
     def only_allies(scent):
         return scent.ant.nation == ant.nation
 
-    def only_ressource(scent):
-        return scent.kind == 'ressource'
+    def only_resource(scent):
+        return scent.kind == 'resource'
 
     def only_in_los(scent):
         # ToDo: Unuglyfy
@@ -52,21 +52,21 @@ def default(ant):
     elif 1 is random.randint(1, 60):
         ant.smell_timer = random.randint(15, 30)
         return
-    ressources = spritecollide(ant, ant.world.map.ressources, False)
+    resources = spritecollide(ant, ant.world.map.resources, False)
     scents = spritecollide(ant, ant.world.scents, False)
     # ToDo: would combining filters reduce lag?
     # ToDo: get random pixel of each scent into a list
     #       then run filters on that list
     scents = filter(only_updated, scents)
     scents = filter(only_allies, scents)
-    scents = filter(only_ressource, scents)
+    scents = filter(only_resource, scents)
     scents = filter(only_in_los, scents)
     scents = tuple(scents)
-    if ressources:
-        res = ressources[0]
+    if resources:
+        res = resources[0]
         amount = min(ant.strength, res.amount)
         res.amount -= amount
-        ant.ressource = default_ressources[res.name](ant.world, amount)
+        ant.resource = default_resources[res.name](ant.world, amount)
     elif scents:
         ant.on_trail = True
         scent = biased_random(scents)

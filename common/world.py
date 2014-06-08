@@ -43,7 +43,7 @@ class World:
             self.last_tick = time()
             self.map.update()
             self.entities.update()
-            self.map.ressources.update()
+            self.map.resources.update()
             if self.current_tick in self.events.keys():
                 for event in self.events[self.current_tick]:
                     event()

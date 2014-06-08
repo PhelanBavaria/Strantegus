@@ -14,7 +14,7 @@ class WorldMap:
     draw_groups = {
         'tiles': pygame.sprite.Group()
     }
-    ressources = pygame.sprite.Group()
+    resources = pygame.sprite.Group()
 
     def info(self, location=None):
         if location:
@@ -38,7 +38,7 @@ class WorldMap:
                 self._map[(x, y)] = {
                     'tile': tile,
                     'scents': [],
-                    'ressources': [],
+                    'resources': [],
                     'structure': None
                     }
 

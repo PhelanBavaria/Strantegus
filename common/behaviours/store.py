@@ -6,8 +6,8 @@ import random
 def default(ant):
     def same_ant_type(entity):
         return type(ant) == type(entity) and ant != entity
-    ant.colony.store(ant.ressource)
-    ant.ressource = None
+    ant.colony.store(ant.resource)
+    ant.resource = None
     ant.colony.exit(ant)
     ant.behaviour = None
     ants = list(filter(same_ant_type, ant.colony.in_ants))
