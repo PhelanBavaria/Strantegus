@@ -6,7 +6,6 @@ import pygame
 import config
 from util.id_generator import id_generator
 from common.worldmap import WorldMap
-from common.objects import Object
 
 
 class World:
@@ -20,7 +19,6 @@ class World:
     entities = pygame.sprite.Group()
     resources = pygame.sprite.Group()
     tiles = pygame.sprite.Group()
-    objects = Object._objects
 
     def __init__(self):
         self.out_ants = pygame.sprite.Group()

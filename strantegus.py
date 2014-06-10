@@ -40,7 +40,8 @@ if __name__ == '__main__':
                 if not world.current_tick % 250:
                     world.scents.update()
                 gui.draw(world.scents)
-            gui.draw(world.objects)
+            gui.draw(world.tiles)
+            gui.draw(world.resources)
             gui.draw(world.out_ants)
             info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
             info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))

@@ -5,7 +5,7 @@ from common.scents import AntScent
 
 
 def direct(ant):
-    objects = spritecollide(ant, ant.world.objects, False)
+    objects = spritecollide(ant, ant.world.resources, False)
     if ant.colony in objects:
         ant.colony.enter(ant)
     else:

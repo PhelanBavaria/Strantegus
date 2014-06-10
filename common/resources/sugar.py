@@ -1,6 +1,6 @@
 
 
-from common.objects import Resource
+from common.resources import Resource
 
 class Sugar(Resource):
     color = (255, 255, 255)

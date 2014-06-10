@@ -4,12 +4,11 @@ import random
 import pygame
 from config import TILE_SIZE
 from util.randop import weighted_choice
-from common.objects import Object
 from common.entities import Ant
 from common.rooms import Room
 
 
-class BaseColony(Object):
+class BaseColony(pygame.sprite.Sprite):
     world = None
     species = None
     leader = None
@@ -22,13 +21,19 @@ class BaseColony(Object):
     scents = {}
 
     def __init__(self, world, leader):
-        Object.__init__(self, world)
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.Surface(self.surface_size)
+        self.image.convert()
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
+        self.world = world
         self.leader = leader
         self.leader.rect.center = self.rect.center
         self.in_ants = pygame.sprite.Group()
         self.out_ants = pygame.sprite.Group()
         self.rooms = pygame.sprite.Group()
         self.join(leader)
+        world.resources.add(self)
 
     def store(self, resource):
         if type(resource) not in self.resource_storage.keys():

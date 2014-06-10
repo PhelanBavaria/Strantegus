@@ -1,15 +1,16 @@
 
 
-from common.objects import Object
+import pygame
 
 
-class Room(Object):
+class Room(pygame.sprite.Sprite):
     colony = None
     content_type = ''
     content = []
 
     def __init__(self, world, colony):
-        Object.__init__(self, world)
+        pygame.sprite.Sprite.__init__(self)
+        self.world = world
         self.colony = colony
 
     def store(self, content):

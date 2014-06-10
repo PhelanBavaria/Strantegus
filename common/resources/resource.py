@@ -1,15 +1,20 @@
 
 
 import pygame
-from common.objects import Object
 
 
-class Resource(Object):
+class Resource(pygame.sprite.Sprite):
+    color = (0, 200, 0)
     def __init__(self, world, amount):
+        pygame.sprite.Sprite.__init__(self)
+        self.world = world
         self.surface_size = (amount, amount)
-        Object.__init__(self, world)
         self.amount = amount
         self.name = 'noname'
+        self.image = pygame.Surface(self.surface_size)
+        self.image.convert()
+        self.image.fill(self.color)
+        self.rect = self.image.get_rect()
         world.resources.add(self)
 
     def update(self):
