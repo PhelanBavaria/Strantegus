@@ -1,6 +1,6 @@
 
 
-TILE_SIZE = 32
+TILE_SIZE = 8
 FPS = 20
 TPS = 200
 SCENT_VISIBLE = True

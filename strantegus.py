@@ -21,7 +21,7 @@ if __name__ == '__main__':
             'brown': species.normal['brown'](world),
             'red': species.normal['red'](world)
         },
-        'map_size': (25, 15),
+        'map_size': (100, 60),
         'seed': 333
     }
     world.setup(setup)
