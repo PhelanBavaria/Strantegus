@@ -8,6 +8,11 @@ from common.behaviours import rest
 
 
 class Queen(Ant):
+    __slots__ = [
+        'egg_tally',
+        'expecting',
+        'first_layed_eggs']
+
     def __init__(self, world, nation):
         Ant.__init__(self, world, nation)
         self.egg_tally = 20

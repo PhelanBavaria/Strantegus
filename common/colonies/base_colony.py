@@ -9,19 +9,17 @@ from common.rooms import Room
 
 
 class BaseColony(pygame.sprite.Sprite):
-    world = None
-    species = None
-    leader = None
-    scent = None
-    location = (0, 0)
-    color = (87, 76, 39)
-    surface_size = (32, 32)
-    main_pheromone = 'work'
-    resource_storage = {}
-    scents = {}
+    __slots__ = [
+        'world',
+        'leader',
+        'color',
+        'surface_size',
+        'resource_storage']
 
     def __init__(self, world, leader):
         pygame.sprite.Sprite.__init__(self)
+        self.color = (87, 76, 39)
+        self.surface_size = (32, 32)
         self.image = pygame.Surface(self.surface_size)
         self.image.convert()
         self.image.fill(self.color)
@@ -32,6 +30,7 @@ class BaseColony(pygame.sprite.Sprite):
         self.in_ants = pygame.sprite.Group()
         self.out_ants = pygame.sprite.Group()
         self.rooms = pygame.sprite.Group()
+        self.resource_storage = {}
         self.join(leader)
         world.resources.add(self)
 

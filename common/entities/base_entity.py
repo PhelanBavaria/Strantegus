@@ -6,19 +6,6 @@ from config import TILE_SIZE
 
 
 class Entity(pygame.sprite.Sprite):
-    coords = (0, 0)
-    world = None
-    rotation = 0
-    focus_range = 2
-    speed = 1
-    size = 4
-    color = (0, 0, 0)
-
-    age = -85
-    strength = 2
-    stamina = 10
-    resource = None
-
     _degree_to_rel = {
         0: (1, 0),
         45: (1, -1),
@@ -30,16 +17,34 @@ class Entity(pygame.sprite.Sprite):
         315: (1, 1)
     }
     _rel_to_degree = dict([reversed(i) for i in _degree_to_rel.items()])
+    __slots__ = [
+        'world',
+        'rotation',
+        'speed',
+        'age',
+        'strength',
+        'stamina',
+        'resource',
+        'lifespan']
+    color = (0, 0, 0)
+    size = 4
 
     def __init__(self, world):
         pygame.sprite.Sprite.__init__(self)
-        self.world = world
-        surface_size = (self.size*2+1, self.size*2+1)
+        surface_size = (self.size/2+1, self.size/2+1)
         self.image = pygame.Surface(surface_size)
         self.image.convert()
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.init_tick = world.current_tick
+        self.world = world
+        self.rotation = 0
+        self.speed = 1
+        self.age = 0
+        self.strength = 2
+        self.stamina = 10
+        self.resource = None
+        self.lifespan = (100, 1000)
         world.entities.add(self)
 
     def rand_rotate(self, full_spin=False, forward=True):

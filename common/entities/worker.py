@@ -7,6 +7,8 @@ from common.behaviours import store
 
 
 class Worker(Ant):
+    __slots__ = ['on_trail']
+
     def __init__(self, world, nation, scent=None):
         Ant.__init__(self, world, nation, scent)
         self.lifespan = (100, 365)

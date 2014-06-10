@@ -9,6 +9,7 @@ from common.entities import Ant
 
 
 class Larvae(Ant):
+    __slots__ = []
     def __init__(self, world, colony):
         Ant.__init__(self, world, colony.leader.nation)
         self.colony = colony

@@ -12,25 +12,30 @@ from common.behaviours import rest
 
 
 class Ant(Entity):
-    inside = True
-    scent = None
-    colony = None
-    size = 1
-    strength = 2
-    lifespan = (100, 1000)
-    smell_timer = 0
-    behaviour = 'rest'
-    colliding_enemies = ()
+    __slots__ = [
+        'inside',
+        'scent',
+        'colony',
+        'smell_timer',
+        'behaviour',
+        'behaviours',
+        'colliding_enemies'
+    ]
 
     def __init__(self, world, nation, scent=None):
         Entity.__init__(self, world)
+        self.nation = nation
+        self.scent = scent
+        self.inside = True
+        self.colony = None
+        self.smell_timer = 0
+        self.behaviour = 'rest'
+        self.colliding_enemies = ()
         self.behaviours = {
             'react_to_enemy': react_to_enemy.hostile,
             'rest': rest.rand_time,
             'return_home': return_home.direct
         }
-        self.world = world
-        self.nation = nation
         if scent:
             self.scent = scent
         else:
