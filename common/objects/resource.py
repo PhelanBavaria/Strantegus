@@ -4,7 +4,7 @@ import pygame
 from common.objects import Object
 
 
-class Ressource(Object):
+class Resource(Object):
     def __init__(self, world, amount):
         self.surface_size = (amount, amount)
         Object.__init__(self, world)
@@ -21,4 +21,4 @@ class Ressource(Object):
         if self.amount == 0:
             self.kill()
         elif self.amount < 0:
-            raise ValueError('Amount of ressource '+str(self)+' below 0')
+            raise ValueError('Amount of resource '+str(self)+' below 0')

@@ -1,11 +1,11 @@
 
 
-from common.objects import Ressource
+from common.objects import Resource
 
-class Sugar(Ressource):
+class Sugar(Resource):
     color = (255, 255, 255)
     def __init__(self, world, amount=150):
         size = amount//10
         self.surface_size = (size, size)
-        Ressource.__init__(self, world, amount)
+        Resource.__init__(self, world, amount)
         self.name = 'sugar'

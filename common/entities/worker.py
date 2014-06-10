@@ -17,16 +17,16 @@ class Worker(Ant):
 
     def behave_check(self):
         if self.inside:
-            if self.ressource:
+            if self.resource:
                 self.behaviour = 'store'
             else:
                 self.behaviour = 'rest'
-        elif self.ressource:
+        elif self.resource:
             base = self._degree_to_rel[self.rotation]
             res_coord = [self.size*2*(a+b)
                          for a, b
                          in zip(base, self.rect.center)]
-            self.ressource.rect.center = res_coord
+            self.resource.rect.center = res_coord
             self.behaviour = 'return_home'
         elif not self.on_trail and 1 == random.randint(1, 1000):
             self.behaviour = 'return_home'

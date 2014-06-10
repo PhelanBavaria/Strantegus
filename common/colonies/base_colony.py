@@ -18,7 +18,7 @@ class BaseColony(Object):
     color = (87, 76, 39)
     surface_size = (32, 32)
     main_pheromone = 'work'
-    ressource_storage = {}
+    resource_storage = {}
     scents = {}
 
     def __init__(self, world, leader):
@@ -30,13 +30,13 @@ class BaseColony(Object):
         self.rooms = pygame.sprite.Group()
         self.join(leader)
 
-    def store(self, ressource):
-        if type(ressource) not in self.ressource_storage.keys():
-            self.ressource_storage[type(ressource)] = 0
+    def store(self, resource):
+        if type(resource) not in self.resource_storage.keys():
+            self.resource_storage[type(resource)] = 0
         try:
-            self.ressource_storage[type(ressource)] += ressource.amount
+            self.resource_storage[type(resource)] += resource.amount
         except AttributeError:
-            self.ressource_storage[type(ressource)] += ressource.size
+            self.resource_storage[type(resource)] += resource.size
 
     def join(self, ant):
         ant.colony = self

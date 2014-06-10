@@ -25,6 +25,6 @@ Moddable:
 - Ants
 - Knowledge (for research)
 - Chambers
-- Ressources
+- resources
 - Maps
 - Languages
