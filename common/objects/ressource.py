@@ -10,6 +10,7 @@ class Ressource(Object):
         Object.__init__(self, world)
         self.amount = amount
         self.name = 'noname'
+        world.resources.add(self)
 
     def update(self):
         self.surface_size = (self.amount, self.amount)

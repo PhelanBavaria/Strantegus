@@ -6,7 +6,6 @@ import pygame
 import config
 from util.id_generator import id_generator
 from common.worldmap import WorldMap
-from common.entities import Entity
 from common.objects import Object
 
 
@@ -18,7 +17,9 @@ class World:
     current_tick = 0
     day = 0
     last_tick = 0
-    entities = Entity._entities
+    entities = pygame.sprite.Group()
+    resources = pygame.sprite.Group()
+    tiles = pygame.sprite.Group()
     objects = Object._objects
 
     def __init__(self):
@@ -31,7 +32,7 @@ class World:
         print('setting up world')
         random.seed(setup['seed'])
         self.map = WorldMap()
-        self.map.create(*setup['map_size'])
+        self.map.create(self, *setup['map_size'])
         self.players = setup['players']
         print('setting up world done')
 

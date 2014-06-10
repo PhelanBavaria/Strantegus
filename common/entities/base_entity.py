@@ -19,7 +19,6 @@ class Entity(pygame.sprite.Sprite):
     stamina = 10
     ressource = None
 
-    _entities = pygame.sprite.Group()
     _degree_to_rel = {
         0: (1, 0),
         45: (1, -1),
@@ -41,7 +40,7 @@ class Entity(pygame.sprite.Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.init_tick = world.current_tick
-        self._entities.add(self)
+        world.entities.add(self)
 
     def rand_rotate(self, full_spin=False, forward=True):
         if full_spin:
