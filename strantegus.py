@@ -37,11 +37,11 @@ if __name__ == '__main__':
         world.turn()
         if turn_time - last_frame >= 1/config.FPS:
             gui.draw(world.map.draw_groups['tiles'])
+            gui.draw(world.tiles)
             if config.SCENT_VISIBLE:
                 if not world.current_tick % 250:
                     world.scents.update()
                 gui.draw(world.scents)
-            gui.draw(world.tiles)
             gui.draw(world.resources)
             gui.draw(world.out_ants)
             info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
