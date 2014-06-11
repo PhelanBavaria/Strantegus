@@ -6,10 +6,12 @@ import pygame
 import config
 from util.id_generator import id_generator
 from common.worldmap import WorldMap
+from maps import maps
 
 
 class World:
     __slots__ = [
+        'create',
         'map',
         'origin',
         'current_tick',
@@ -42,6 +44,7 @@ class World:
         random.seed(setup['seed'])
         self.map.create(self, *setup['map_size'])
         self.players = setup['players']
+        self.create = maps[setup['map_name']].create
         print('setting up world done')
 
     def turn(self):
