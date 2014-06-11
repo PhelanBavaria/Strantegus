@@ -1,12 +1,12 @@
 
 
-from common.resources import Resource
+from common.resources import BaseResource
 
 
-class Sugar(Resource):
+class Sugar(BaseResource):
     __slots__ = []
     color = (255, 255, 255)
 
     def __init__(self, world, amount=150):
-        Resource.__init__(self, world, amount)
+        BaseResource.__init__(self, world, amount)
         self.name = 'sugar'

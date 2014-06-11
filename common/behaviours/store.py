@@ -4,8 +4,8 @@ import random
 
 
 def default(ant):
-    def same_ant_type(entity):
-        return type(ant) == type(entity) and ant != entity
+    def same_ant_type(BaseEntity):
+        return type(ant) == type(BaseEntity) and ant != BaseEntity
     ant.colony.store(ant.resource)
     ant.resource = None
     ant.colony.exit(ant)

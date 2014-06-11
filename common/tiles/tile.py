@@ -5,7 +5,7 @@ from config import TILE_SIZE
 from util.load import load_image
 
 
-class Tile(pygame.sprite.Sprite):
+class BaseTile(pygame.sprite.Sprite):
     __slots__ = ['world']
     x = 0
     y = 0

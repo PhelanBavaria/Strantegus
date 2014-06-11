@@ -1,11 +1,11 @@
 
 
 import pygame
-from common.tiles.base import Tile
+from common.tiles.tile import BaseTile
 
 
-class Grass(Tile):
+class Grass(BaseTile):
     def __init__(self, world, x, y):
         self.x = x
         self.y = y
-        Tile.__init__(self, world, 'grass')
+        BaseTile.__init__(self, world, 'grass')

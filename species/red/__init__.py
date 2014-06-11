@@ -8,9 +8,9 @@ from common import entities
 class Media(entities.Worker):
     color = (155, 15, 15)
 
-    def is_enemy(self, entity):
-        own_colony = entity.colony == self.colony
-        is_dead = entity.stamina == 0
+    def is_enemy(self, BaseEntity):
+        own_colony = BaseEntity.colony == self.colony
+        is_dead = BaseEntity.stamina == 0
         return not (own_colony or is_dead)
 
 

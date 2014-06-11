@@ -1,15 +1,15 @@
 
 
-from common.scents import Scent
+from common.scents import BaseScent
 
 
-class AntScent(Scent):
+class AntScent(BaseScent):
     __slots__ = [
         'last_update',
         'kind']
 
     def __init__(self, ant, kind, amount=20):
-        Scent.__init__(self, ant, amount)
+        BaseScent.__init__(self, ant, amount)
         self.ant.world.scents.add(self)
         self.last_update = ant.age
         self.kind = kind

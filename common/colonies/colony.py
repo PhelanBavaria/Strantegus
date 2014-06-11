@@ -5,7 +5,7 @@ import pygame
 from config import TILE_SIZE
 from util.randop import weighted_choice
 from common.entities import Ant
-from common.rooms import Room
+from common.rooms import BaseRoom
 
 
 class BaseColony(pygame.sprite.Sprite):
@@ -61,4 +61,4 @@ class BaseColony(pygame.sprite.Sprite):
         ant.inside = False
 
     def add_room(self):
-        self.rooms.add(Room(self.world, self))
+        self.rooms.add(BaseRoom(self.world, self))

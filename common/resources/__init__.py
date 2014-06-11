@@ -1,6 +1,6 @@
 
 
-from common.resources.resource import Resource
+from common.resources.resource import BaseResource
 from common.resources.sugar import Sugar
 
 

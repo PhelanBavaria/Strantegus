@@ -4,7 +4,7 @@ import pygame
 import config
 
 
-class Scent(pygame.sprite.Sprite):
+class BaseScent(pygame.sprite.Sprite):
     __slots__ = [
         'ant',
         'amount',

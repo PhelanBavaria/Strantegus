@@ -5,13 +5,13 @@ import pygame
 from pygame.sprite import spritecollide
 import config
 from util.id_generator import id_generator
-from common.entities import Entity
+from common.entities import BaseEntity
 from common.behaviours import react_to_enemy
 from common.behaviours import return_home
 from common.behaviours import rest
 
 
-class Ant(Entity):
+class Ant(BaseEntity):
     __slots__ = [
         'inside',
         'scent',
@@ -23,7 +23,7 @@ class Ant(Entity):
     ]
 
     def __init__(self, world, nation, scent=None):
-        Entity.__init__(self, world)
+        BaseEntity.__init__(self, world)
         self.nation = nation
         self.scent = scent
         self.inside = True

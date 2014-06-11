@@ -3,7 +3,7 @@
 import pygame
 
 
-class Resource(pygame.sprite.Sprite):
+class BaseResource(pygame.sprite.Sprite):
     __slots__ = [
         'world',
         'amount',

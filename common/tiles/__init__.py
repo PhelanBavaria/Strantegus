@@ -1,10 +1,10 @@
 
 
-from common.tiles.base import Tile
+from common.tiles.tile import BaseTile
 from common.tiles.grass import Grass
 
 
 tiles = {
-    'base': Tile,
+    'base': BaseTile,
     'grass': Grass
 }

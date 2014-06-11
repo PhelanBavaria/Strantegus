@@ -1,12 +1,12 @@
 
 
-from common.scents import Scent
+from common.scents import BaseScent
 
 
-class FoodTrail(Scent):
+class FoodTrail(BaseScent):
     color = (255, 255, 255)
     def __init__(self, ant):
-        Scent.__init__(self, ant)
+        BaseScent.__init__(self, ant)
         self.ant.world.food_trails.add(self)
 
     def disappear(self):
