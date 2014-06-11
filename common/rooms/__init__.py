@@ -4,14 +4,17 @@ import pygame
 
 
 class Room(pygame.sprite.Sprite):
-    colony = None
-    content_type = ''
-    content = []
+    __slots__ = [
+        'colony',
+        'content_type',
+        'content']
 
     def __init__(self, world, colony):
         pygame.sprite.Sprite.__init__(self)
         self.world = world
         self.colony = colony
+        self.content_type = ''
+        self.content = []
 
     def store(self, content):
         if not self.content_type:

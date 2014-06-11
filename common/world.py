@@ -9,27 +9,37 @@ from common.worldmap import WorldMap
 
 
 class World:
-    map = None
-    spt = 0.05  # seconds per turn
-    origin = (0, 0)
-    current_turn = 0
-    current_tick = 0
-    day = 0
-    last_tick = 0
-    entities = pygame.sprite.Group()
-    resources = pygame.sprite.Group()
-    tiles = pygame.sprite.Group()
+    __slots__ = [
+        'map',
+        'origin',
+        'current_tick',
+        'day',
+        'last_tick',
+        'entities',
+        'resources',
+        'tiles',
+        'out_ants',
+        'scents',
+        'players',
+        'events']
 
     def __init__(self):
+        self.origin = (0, 0)
+        self.current_tick = 0
+        self.day = 0
+        self.last_tick = 0
+        self.entities = pygame.sprite.Group()
+        self.resources = pygame.sprite.Group()
+        self.tiles = pygame.sprite.Group()
         self.out_ants = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
         self.players = {}
         self.events = {}
+        self.map = WorldMap()
 
     def setup(self, setup):
         print('setting up world')
         random.seed(setup['seed'])
-        self.map = WorldMap()
         self.map.create(self, *setup['map_size'])
         self.players = setup['players']
         print('setting up world done')
@@ -38,7 +48,6 @@ class World:
         turn_time = time()
         spt = turn_time - self.last_tick
         if spt >= 1/config.TPS:
-            self.real_tps = round(1/spt)
             self.last_tick = time()
             self.map.update()
             self.entities.update()

@@ -5,6 +5,10 @@ import config
 
 
 class Scent(pygame.sprite.Sprite):
+    __slots__ = [
+        'ant',
+        'amount',
+        'turn']
     color = (120, 120, 120)
 
     def __init__(self, ant, amount):

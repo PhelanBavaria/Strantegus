@@ -4,6 +4,10 @@ from common.scents import Scent
 
 
 class AntScent(Scent):
+    __slots__ = [
+        'last_update',
+        'kind']
+
     def __init__(self, ant, kind, amount=20):
         Scent.__init__(self, ant, amount)
         self.ant.world.scents.add(self)

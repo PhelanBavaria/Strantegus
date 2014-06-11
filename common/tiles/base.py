@@ -6,8 +6,7 @@ from util.load import load_image
 
 
 class Tile(pygame.sprite.Sprite):
-    image = None
-    rect = None
+    __slots__ = ['world']
     x = 0
     y = 0
 

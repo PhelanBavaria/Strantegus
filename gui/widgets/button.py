@@ -5,6 +5,8 @@ from gui.widgets import Widget
 
 
 class Button(Widget):
+    __slots__ = []
+
     def __init__(self, gui, position, size=(50, 25)):
         Widget.__init__(self, gui, position, size)
 

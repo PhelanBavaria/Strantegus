@@ -6,6 +6,8 @@ from util.load import load_image
 
 
 class GUI:
+    __slots__ = [
+        'exit']
     pygame.init()
     pygame.display.set_caption('Strantegus')
     screen = pygame.display.set_mode((1000, 500))
@@ -19,7 +21,9 @@ class GUI:
     elements = pygame.sprite.Group()
     clickables = pygame.sprite.Group()
     font = pygame.font.Font('fonts/freesansbold.ttf', 10)
-    exit = False
+
+    def __init__(self):
+        self.exit = False
 
     def draw(self, elements=None):
         if not elements:

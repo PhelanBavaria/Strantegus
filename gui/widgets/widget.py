@@ -4,6 +4,8 @@ import pygame
 
 
 class Widget(pygame.sprite.Sprite):
+    __slots__ = []
+
     def __init__(self, gui, position, size=(50, 25)):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.Surface(size)
