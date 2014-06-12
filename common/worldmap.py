@@ -28,18 +28,7 @@ class WorldMap:
         return random.choice(list(self._map.keys()))
 
     def create(self, world, w, h):
-        self.w = w
-        self.h = h
-        for y in range(self.h):
-            for x in range(self.w):
-                tile = tiles['grass'](world, x*TILE_SIZE, y*TILE_SIZE)
-                self.draw_groups['tiles'].add(tile)
-                self._map[(x, y)] = {
-                    'tile': tile,
-                    'scents': [],
-                    'resources': [],
-                    'structure': None
-                    }
+        
 
     def add_structure(self, structure):
         self._map[structure.location]['structure'] = structure

@@ -79,14 +79,16 @@ class BaseEntity(pygame.sprite.Sprite):
         self.rect.center = tuple(rect_pos)
         self.rotation = self._rel_to_degree[rel_move]
 
-        oob_right = self.rect.right > self.world.map.w*TILE_SIZE
-        oob_bottom = self.rect.bottom > self.world.map.h*TILE_SIZE
+        map_width = self.world.setup['map_size'][0]*TILE_SIZE
+        map_height = self.world.setup['map_size'][1]*TILE_SIZE
+        oob_right = self.rect.right > map_width
+        oob_bottom = self.rect.bottom > map_height
         oob_left = self.rect.left < 0
         oob_top = self.rect.top < 0
         if oob_right:
-            self.rect.right = self.world.map.w*TILE_SIZE
+            self.rect.right = map_width
         if oob_bottom:
-            self.rect.bottom = self.world.map.h*TILE_SIZE
+            self.rect.bottom = map_height
         if oob_left:
             self.rect.left = 0
         if oob_top:

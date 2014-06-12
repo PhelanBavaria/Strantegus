@@ -32,7 +32,7 @@ class BaseColony(pygame.sprite.Sprite):
         self.rooms = pygame.sprite.Group()
         self.resource_storage = {}
         self.join(leader)
-        world.resources.add(self)
+        world.tiles.add(self)
 
     def store(self, resource):
         if type(resource) not in self.resource_storage.keys():

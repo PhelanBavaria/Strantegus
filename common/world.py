@@ -5,14 +5,13 @@ from time import time
 import pygame
 import config
 from util.id_generator import id_generator
-from common.worldmap import WorldMap
 from maps import maps
 
 
 class World:
     __slots__ = [
+        'setup',
         'create',
-        'map',
         'origin',
         'current_tick',
         'day',
@@ -25,7 +24,10 @@ class World:
         'players',
         'events']
 
-    def __init__(self):
+    def __init__(self, setup):
+        print('setting up world')
+        random.seed(setup['seed'])
+        self.setup = setup
         self.origin = (0, 0)
         self.current_tick = 0
         self.day = 0
@@ -37,14 +39,11 @@ class World:
         self.scents = pygame.sprite.Group()
         self.players = {}
         self.events = {}
-        self.map = WorldMap()
-
-    def setup(self, setup):
-        print('setting up world')
-        random.seed(setup['seed'])
-        self.map.create(self, *setup['map_size'])
-        self.players = setup['players']
         self.create = maps[setup['map_name']].create
+        self.players = setup['players']
+        self.create(self)
+        for name, player in self.players.items():
+            self.players[name] = player(self)
         print('setting up world done')
 
     def turn(self):
@@ -52,9 +51,7 @@ class World:
         spt = turn_time - self.last_tick
         if spt >= 1/config.TPS:
             self.last_tick = time()
-            self.map.update()
             self.entities.update()
-            self.map.resources.update()
             if self.current_tick in self.events.keys():
                 for event in self.events[self.current_tick]:
                     event()
@@ -68,3 +65,8 @@ class World:
         self.events[turn].append(event)
         # print(turn)
         # print(len(self.events.items()))
+
+    def randloc(self):
+        x = random.randint(0, self.setup['map_size'][0]) * config.TILE_SIZE
+        y = random.randint(0, self.setup['map_size'][1]) * config.TILE_SIZE
+        return (x, y)

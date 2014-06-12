@@ -14,29 +14,26 @@ if __name__ == '__main__':
     from common.world import World
     from common import resources
 
-    world = World()
-
     setup = {
         'players': {
-            'brown': species.normal['brown'](world),
-            'red': species.normal['red'](world)
+            'brown': species.normal['brown'],
+            'red': species.normal['red']
         },
         'map_name': 'test',
         'map_size': (100, 60),
         'seed': 333
     }
-    world.setup(setup)
+    world = World(setup)
 
     test_sugar = resources['sugar'](world)
     test_sugar.rect.topleft = (500, 300)
-    world.map.resources.add(test_sugar)
+    #world.map.resources.add(test_sugar)
 
     last_frame = time()
     while not gui.exit:
         turn_time = time()
         world.turn()
         if turn_time - last_frame >= 1/config.FPS:
-            gui.draw(world.map.draw_groups['tiles'])
             gui.draw(world.tiles)
             if config.SCENT_VISIBLE:
                 if not world.current_tick % 250:

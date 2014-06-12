@@ -25,7 +25,7 @@ class Queen(Ant):
         #       into separate funcitons
         if not self.colony:
             if 1 == random.randint(1, 200):
-                coords = self.world.map.randloc()
+                coords = self.world.randloc()
                 self.nation.establish_colony(coords, self.world, self)
         elif self.expecting:
             for room in self.colony.rooms:
