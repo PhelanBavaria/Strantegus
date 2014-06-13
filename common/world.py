@@ -19,6 +19,7 @@ class World:
         'entities',
         'resources',
         'tiles',
+        'structures',
         'out_ants',
         'scents',
         'players',
@@ -35,6 +36,7 @@ class World:
         self.entities = pygame.sprite.Group()
         self.resources = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
+        self.structures = pygame.sprite.Group()
         self.out_ants = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
         self.players = {}
