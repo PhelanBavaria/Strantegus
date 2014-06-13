@@ -19,7 +19,7 @@ class World:
         'entities',
         'resources',
         'tiles',
-        'structures',
+        'levels',
         'out_ants',
         'scents',
         'players',
@@ -36,9 +36,19 @@ class World:
         self.entities = pygame.sprite.Group()
         self.resources = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
-        self.structures = pygame.sprite.Group()
         self.out_ants = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
+        self.levels = {
+            'underground': {
+                'background': pygame.sprite.Group(),
+                'foreground': pygame.sprite.Group()
+            },
+            'surface': {
+                'ground': pygame.sprite.Group(),
+                'surface': pygame.sprite.Group(),
+                'air': pygame.sprite.Group()
+            }
+        }
         self.players = {}
         self.events = {}
         self.create = maps[setup['map_name']].create
