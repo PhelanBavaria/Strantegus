@@ -6,5 +6,6 @@ from common.tiles.grass import Grass
 
 tiles = {
     'base': BaseTile,
-    'grass': Grass
+    'grass': Grass,
+    'sugar': Sugar
 }
