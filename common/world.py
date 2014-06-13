@@ -21,7 +21,6 @@ class World:
         'tiles',
         'current_level',
         'levels',
-        'out_ants',
         'scents',
         'players',
         'events']
@@ -37,7 +36,6 @@ class World:
         self.entities = pygame.sprite.Group()
         self.resources = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
-        self.out_ants = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
         self.current_level = 'surface'
         self.levels = {

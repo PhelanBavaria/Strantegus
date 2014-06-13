@@ -31,7 +31,9 @@ class Queen(Ant):
             for room in self.colony.rooms:
                 if room.content_type in ('', 'spawn_cell'):
                     for egg in range(self.egg_tally):
-                        if len(self.colony.in_ants) + len(self.colony.out_ants) >= config.MAX_ANTS:
+                        in_ants = self.world.levels['underground'][1]
+                        out_ants = self.world.levels['surface'][1]
+                        if len(in_ants) + len(out_ants) >= config.MAX_ANTS:
                             break
                         larvae = self.nation.larvae_type(self.world,
                                                          self.colony)

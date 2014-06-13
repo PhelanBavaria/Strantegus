@@ -27,8 +27,6 @@ class BaseColony(pygame.sprite.Sprite):
         self.world = world
         self.leader = leader
         self.leader.rect.center = self.rect.center
-        self.in_ants = pygame.sprite.Group()
-        self.out_ants = pygame.sprite.Group()
         self.rooms = pygame.sprite.Group()
         self.resource_storage = {}
         self.join(leader)
@@ -44,19 +42,17 @@ class BaseColony(pygame.sprite.Sprite):
 
     def join(self, ant):
         ant.colony = self
-        self.in_ants.add(ant)
+        self.world.levels['underground'][1].add(ant)
 
     def enter(self, ant):
-        self.out_ants.remove(ant)
-        self.in_ants.add(ant)
-        self.world.out_ants.remove(ant)
+        self.world.levels['surface'][1].remove(ant)
+        self.world.levels['underground'][1].add(ant)
         ant.rotate(180)
         ant.inside = True
 
     def exit(self, ant):
-        self.in_ants.remove(ant)
-        self.out_ants.add(ant)
-        self.world.out_ants.add(ant)
+        self.world.levels['underground'][1].remove(ant)
+        self.world.levels['surface'][1].add(ant)
         ant.rand_rotate(full_spin=True)
         ant.inside = False
 
