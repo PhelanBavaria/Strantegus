@@ -29,7 +29,7 @@ class BaseEntity(pygame.sprite.Sprite):
     color = (0, 0, 0)
     size = 4
 
-    def __init__(self, world):
+    def __init__(self, world, level='underground'):
         pygame.sprite.Sprite.__init__(self)
         surface_size = (self.size/2+1, self.size/2+1)
         self.image = pygame.Surface(surface_size)
@@ -46,6 +46,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self.resource = None
         self.lifespan = (100, 1000)
         world.entities.add(self)
+        world.levels[level][1].add(self)
 
     def rand_rotate(self, full_spin=False, forward=True):
         if full_spin:

@@ -10,7 +10,7 @@ class BaseTile(pygame.sprite.Sprite):
     x = 0
     y = 0
 
-    def __init__(self, world, image):
+    def __init__(self, world, image, level='surface'):
         pygame.sprite.Sprite.__init__(self)
         self.image = load_image(image+'.bmp')
         self.image = pygame.transform.scale(self.image, (TILE_SIZE, TILE_SIZE))
@@ -18,3 +18,4 @@ class BaseTile(pygame.sprite.Sprite):
         self.rect.topleft = self.x, self.y
         self.world = world
         world.tiles.add(self)
+        world.levels[level][0].add(self)

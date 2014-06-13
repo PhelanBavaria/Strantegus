@@ -34,12 +34,12 @@ if __name__ == '__main__':
         turn_time = time()
         world.turn()
         if turn_time - last_frame >= 1/config.FPS:
-            gui.draw(world.tiles)
+            for layer in world.levels[world.current_level]:
+                gui.draw(layer)
             if config.SCENT_VISIBLE:
                 if not world.current_tick % 250:
                     world.scents.update()
                 gui.draw(world.scents)
-            gui.draw(world.resources)
             gui.draw(world.out_ants)
             info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
             info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
