@@ -2,6 +2,7 @@
 
 from common.tiles.tile import BaseTile
 from common.tiles.grass import Grass
+from common.tiles.sugar import Sugar
 
 
 tiles = {

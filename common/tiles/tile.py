@@ -19,3 +19,6 @@ class BaseTile(pygame.sprite.Sprite):
         self.world = world
         world.tiles.add(self)
         world.levels[level][0].add(self)
+
+    def mine(self):
+        return

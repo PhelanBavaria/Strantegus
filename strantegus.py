@@ -12,7 +12,7 @@ if __name__ == '__main__':
     import species
     from gui_setup import gui
     from common.world import World
-    from common import resources
+    from common.tiles import Sugar
 
     setup = {
         'players': {
@@ -25,9 +25,7 @@ if __name__ == '__main__':
     }
     world = World(setup)
 
-    test_sugar = resources['sugar'](world)
-    test_sugar.rect.topleft = (500, 300)
-    #world.map.resources.add(test_sugar)
+    test_sugar = Sugar(world, 500, 300)
 
     last_frame = time()
     while not gui.exit:
