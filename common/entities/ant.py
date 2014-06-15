@@ -19,6 +19,7 @@ class Ant(BaseEntity):
         'smell_timer',
         'behaviour',
         'behaviours',
+        'exit_hole',
         'colliding_enemies'
     ]
 
@@ -31,6 +32,7 @@ class Ant(BaseEntity):
         self.smell_timer = 0
         self.behaviour = 'rest'
         self.colliding_enemies = ()
+        self.exit_hole = None
         self.behaviours = {
             'react_to_enemy': react_to_enemy.hostile,
             'rest': rest.rand_time,

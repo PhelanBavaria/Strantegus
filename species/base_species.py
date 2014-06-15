@@ -22,7 +22,7 @@ class BaseSpecies:
 
     def establish_colony(self, coords, world, leader):
         colony = self.colony_type(world, leader)
-        colony.rect.topleft = coords[0], coords[1]
-        colony.leader.rect.center = colony.rect.center
-        print('New colony at:', colony.rect.center)
+        colony.leader.rect.center = coords[0], coords[1]
+        colony.tiles['entrance'](world, colony, coords[0], coords[1])
+        print('New colony at:', coords)
         self.colonies.append(colony)
