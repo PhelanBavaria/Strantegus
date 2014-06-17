@@ -11,9 +11,9 @@ includefiles=[
 includes=[]
 excludes=[]
 packages=[]
-bin_path_excludes=['species']
+bin_path_excludes=[]
 setup(
-    version = "PreAlpha1",
+    version = "PreAlpha2",
     description = "Grand Strategy Game with Ants",
     author = "PhelanBavaria",
     name = "Strantegus",
