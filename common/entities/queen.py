@@ -4,7 +4,6 @@ import random
 import config
 from common.entities import Ant
 from common.entities import Larvae
-from common.behaviours import rest
 
 
 class Queen(Ant):
@@ -18,7 +17,6 @@ class Queen(Ant):
         self.egg_tally = 20
         self.expecting = True
         self.first_layed_eggs = 0
-        self.behaviours['rest'] = rest.indefinite
 
     def behave_check(self):
         # ToDo: move everything that is no behavior checking

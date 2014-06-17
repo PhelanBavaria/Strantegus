@@ -35,7 +35,7 @@ class Ant(BaseEntity):
         self.exit_hole = None
         self.behaviours = {
             'react_to_enemy': react_to_enemy.hostile,
-            'rest': rest.rand_time,
+            'rest': rest.indefinite,
             'return_home': return_home.direct
         }
         if scent:
@@ -51,7 +51,10 @@ class Ant(BaseEntity):
         elif ticks_passed % config.TICKS_PER_DAY == 0:
             self.age += 1
         self.behave_check()
-        self.behaviours[self.behaviour](self)
+        try:
+            self.behaviours[self.behaviour](self)
+        except KeyError:
+            print(self)
 
     def behave_check(self):
         if self.stamina > 0:

@@ -6,10 +6,13 @@ from pygame.sprite import spritecollide
 import config
 from util.id_generator import id_generator
 from common.entities import Ant
+from common.entities import Worker
+from common.entities import Warrior
 
 
 class Larvae(Ant):
     __slots__ = []
+
     def __init__(self, world, colony):
         Ant.__init__(self, world, colony.leader.nation)
         self.colony = colony
@@ -19,7 +22,11 @@ class Larvae(Ant):
             self.hatch(self.hatching_type())
 
     def hatching_type(self):
-        return Ant
+        if 1 == random.randint(1, 10):
+            ant_type = Warrior
+        else:
+            ant_type = Worker
+        return ant_type
 
     def hatch(self, ant_type):
         ant = ant_type(self.world, self.nation, self.scent)

@@ -4,6 +4,7 @@ import random
 from common.entities import Ant
 from common.behaviours import scout
 from common.behaviours import store
+from common.behaviours import rest
 
 
 class Worker(Ant):
@@ -14,6 +15,7 @@ class Worker(Ant):
         self.lifespan = (100, 365)
         self.behaviours['scout'] = scout.default
         self.behaviours['store'] = store.default
+        self.behaviours['rest'] = rest.rand_time
         self.behaviour = 'scout'
         self.on_trail = False
 

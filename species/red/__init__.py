@@ -14,9 +14,17 @@ class Media(entities.Worker):
         return not (own_colony or is_dead)
 
 
+class Warrior(entities.Warrior):
+    pass
+
+
 class Larvae(entities.Larvae):
     def hatching_type(self):
-        return Media
+        if 1 == random.randint(1, 9):
+            ant_type = Warrior
+        else:
+            ant_type = Media
+        return ant_type
 
 
 class Red(BaseSpecies):
