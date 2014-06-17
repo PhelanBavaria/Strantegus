@@ -9,5 +9,5 @@ class ColonyEntrance(BaseTile):
         self.x = x
         self.y = y
         self.colony = colony
-        BaseTile.__init__(self, world, 'colony_entrance')
+        BaseTile.__init__(self, x, y, world, 'colony_entrance')
         colony.entrances.add(self)

@@ -40,13 +40,13 @@ class World:
         self.current_level = 'surface'
         self.levels = {
             'underground': [
-                pygame.sprite.Group(),  # Background
-                pygame.sprite.Group()   # Foreground
+                pygame.sprite.OrderedUpdates(),  # Background
+                pygame.sprite.OrderedUpdates()   # Foreground
             ],
             'surface': [
-                pygame.sprite.Group(),  # Floor
-                pygame.sprite.Group(),  # Surface
-                pygame.sprite.Group()   # Air
+                pygame.sprite.OrderedUpdates(),  # Floor
+                pygame.sprite.OrderedUpdates(),  # Surface
+                pygame.sprite.OrderedUpdates()   # Air
             ]
         }
         self.players = {}
@@ -64,6 +64,7 @@ class World:
         if spt >= 1/config.TPS:
             self.last_tick = time()
             self.entities.update()
+            self.resources.update()
             if self.current_tick in self.events.keys():
                 for event in self.events[self.current_tick]:
                     event()
@@ -79,6 +80,6 @@ class World:
         # print(len(self.events.items()))
 
     def randloc(self):
-        x = random.randint(0, self.setup['map_size'][0]) * config.TILE_SIZE
-        y = random.randint(0, self.setup['map_size'][1]) * config.TILE_SIZE
+        x = random.randint(0, self.setup['map_size'][0])
+        y = random.randint(0, self.setup['map_size'][1])
         return (x, y)

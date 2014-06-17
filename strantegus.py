@@ -25,7 +25,8 @@ if __name__ == '__main__':
     }
     world = World(setup)
 
-    test_sugar = Sugar(world, 500, 300)
+    test_sugar = Sugar(50, 30, world)
+    test_sugar.structure(10)
 
     last_frame = time()
     while not gui.exit:
