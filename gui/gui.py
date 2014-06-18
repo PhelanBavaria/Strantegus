@@ -6,8 +6,7 @@ from util.load import load_image
 
 
 class GUI:
-    __slots__ = [
-        'exit']
+    __slots__ = []
     pygame.init()
     pygame.display.set_caption('Strantegus')
     screen = pygame.display.set_mode((1000, 500))
@@ -19,11 +18,7 @@ class GUI:
     screen.blit(background, (0, 0))
     pygame.display.flip()
     elements = pygame.sprite.Group()
-    clickables = pygame.sprite.Group()
     font = pygame.font.Font('fonts/freesansbold.ttf', 10)
-
-    def __init__(self):
-        self.exit = False
 
     def draw(self, elements=None):
         if not elements:
@@ -35,24 +30,3 @@ class GUI:
 
     def update(self):
         pygame.display.flip()
-
-    def check_events(self):
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                self.exit = True
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    self.exit = True
-                elif event.key == pygame.K_F3:
-                    config.SCENT_VISIBLE = not config.SCENT_VISIBLE
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                mouse_pos = pygame.mouse.get_pos()
-                for clickable in self.clickables:
-                    if clickable.rect.collidepoint(mouse_pos):
-                        clickable.on_left_click()
-
-    def quit(self):
-        if self.exit:
-            pygame.quit()
-        else:
-            self.exit = True

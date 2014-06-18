@@ -5,6 +5,7 @@ import config
 import util
 import technologies
 import gui
+import events
 
 
 if __name__ == '__main__':
@@ -35,7 +36,7 @@ if __name__ == '__main__':
     test_sugar.structure(10)
 
     last_frame = time()
-    while not gui.exit:
+    while not events.exit:
         turn_time = time()
         world.turn()
         if turn_time - last_frame >= 1/config.FPS:
@@ -52,10 +53,10 @@ if __name__ == '__main__':
             gui.draw_info(info_scent_tally, (10, 30))
             gui.draw()
             gui.update()
-            gui.check_events()
+            events.check()
             last_frame = time()
 
     print(len(tuple(world.entities)), 'entities')
     print('testing ends')
-    gui.quit()
+    events.quit()
     sys.exit()
