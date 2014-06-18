@@ -23,7 +23,8 @@ class World:
         'levels',
         'scents',
         'players',
-        'events']
+        'events',
+        'clickables']
 
     def __init__(self, setup):
         print('setting up world')
@@ -51,6 +52,7 @@ class World:
         }
         self.players = {}
         self.events = {}
+        self.clickables = pygame.sprite.Group()
         self.create = maps[setup['map_name']].create
         self.players = setup['players']
         self.create(self)

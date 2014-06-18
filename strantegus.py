@@ -10,10 +10,12 @@ import gui
 if __name__ == '__main__':
     from pprint import pprint
     import species
-    from gui_setup import gui
     from common.world import World
+    from gui.gui import GUI
     from common.tiles import Sugar
+    from gui.pages import MainGame
 
+    gui = GUI()
     setup = {
         'players': {
             'brown': species.normal['brown'],
@@ -25,6 +27,10 @@ if __name__ == '__main__':
     }
     world = World(setup)
 
+    current_page = 'main_game'
+    pages = {
+        'main_game': MainGame(gui, world)
+    }
     test_sugar = Sugar(50, 30, world)
     test_sugar.structure(10)
 
@@ -33,8 +39,7 @@ if __name__ == '__main__':
         turn_time = time()
         world.turn()
         if turn_time - last_frame >= 1/config.FPS:
-            for layer in world.levels[world.current_level]:
-                gui.draw(layer)
+            pages[current_page].draw()
             if config.SCENT_VISIBLE:
                 if not world.current_tick % 250:
                     world.scents.update()
