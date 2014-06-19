@@ -2,6 +2,7 @@
 
 from config import TILE_SIZE
 from common import tiles
+from common.events import Rain
 
 
 def create(world):
@@ -17,3 +18,4 @@ def create(world):
             #    'resources': [],
             #    'structure': None
             #    }
+    world.world_events.append(Rain(world, intensity=(1, 100)))

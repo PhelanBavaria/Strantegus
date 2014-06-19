@@ -65,6 +65,10 @@ class BaseEntity(pygame.sprite.Sprite):
 
     def move(self, goal=()):
         # ToDo: Unuglyfy
+        for danger in self.world.dangers:
+            if danger.rect.collidepoint(self.rect.center):
+                self.stamina = 0
+                return
         if goal:
             dist = [a - b for a, b in zip(goal, self.rect.center)]
             m = max(abs(dist[0]), abs(dist[1]))

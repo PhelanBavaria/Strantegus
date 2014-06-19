@@ -23,8 +23,10 @@ class World:
         'current_level',
         'levels',
         'scents',
+        'dangers',
         'players',
         'speed_mod',
+        'world_events',
         'clickables']
 
     def __init__(self, setup):
@@ -39,6 +41,7 @@ class World:
         self.resources = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
+        self.dangers = pygame.sprite.Group()
         self.current_level = 'surface'
         self.levels = {
             'underground': [
@@ -56,6 +59,7 @@ class World:
         self.create = maps[setup['map_name']].create
         self.players = setup['players']
         self.speed_mod = 1
+        self.world_events = []
         self.create(self)
         for name, player in self.players.items():
             self.players[name] = player(self)
@@ -71,6 +75,8 @@ class World:
             self.resources.update()
             if self.current_tick % config.TICKS_PER_DAY == 0:
                 self.day += 1
+            for we in self.world_events:
+                we.update()
             self.current_tick += 1
 
     def randloc(self):
