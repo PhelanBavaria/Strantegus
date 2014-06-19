@@ -19,8 +19,8 @@ if __name__ == '__main__':
     gui = GUI()
     setup = {
         'players': {
-            'brown': species.normal['brown'],
-            'red': species.normal['red']
+            'brown': species.normal['formica']['fusca'],
+            'red': species.normal['myrmica']['rubra']
         },
         'map_name': 'test',
         'map_size': (100, 60),

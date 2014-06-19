@@ -1,11 +1,15 @@
 
 from species.base_species import BaseSpecies
-from species import brown
-from species import red
+from species import formica
+from species import myrmica
 
 normal = {
-    'brown': brown.Brown,
-    'red': red.Red,
+    'formica': {
+        'fusca': formica.Fusca
+    },
+    'myrmica': {
+        'rubra': myrmica.Rubra
+    },
     'orange': None,
     'leavecutter': None,
     'honeypot': None,

@@ -6,12 +6,7 @@ from common import entities
 
 
 class Media(entities.Worker):
-    color = (155, 15, 15)
-
-    def is_enemy(self, BaseEntity):
-        own_colony = BaseEntity.colony == self.colony
-        is_dead = BaseEntity.stamina == 0
-        return not (own_colony or is_dead)
+    pass
 
 
 class Warrior(entities.Warrior):
@@ -20,12 +15,12 @@ class Warrior(entities.Warrior):
 
 class Larvae(entities.Larvae):
     def hatching_type(self):
-        if 1 == random.randint(1, 9):
+        if 1 == random.randint(1, 10):
             ant_type = Warrior
         else:
             ant_type = Media
         return ant_type
 
 
-class Red(BaseSpecies):
+class BaseFormica(BaseSpecies):
     larvae_type = Larvae
