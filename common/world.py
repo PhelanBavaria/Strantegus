@@ -80,8 +80,8 @@ class World:
             self.current_tick += 1
 
     def randloc(self):
-        x = random.randint(0, self.setup['map_size'][0])
-        y = random.randint(0, self.setup['map_size'][1])
+        x = random.randint(0, self.setup['map_size'][0]-1)
+        y = random.randint(0, self.setup['map_size'][1]-1)
         return (x, y)
 
     def toggle_speed(self):
