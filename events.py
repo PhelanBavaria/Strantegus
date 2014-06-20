@@ -6,23 +6,8 @@ import config
 
 exit = False
 clickables = {}
+keys_pressed = []
 
-
-def check():
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            exit = True
-        elif event.type == pygame.KEYDOWN:
-            for key, action in keymap.items():
-                if event.key == key:
-                    action()
-                    break
-        elif event.type == pygame.MOUSEBUTTONDOWN:
-            mouse_pos = pygame.mouse.get_pos()
-            for name, group in clickables.items():
-                for clickable in group:
-                    if clickable.rect.collidepoint(mouse_pos):
-                        clickable.on_left_click()
 
 
 def quit():
@@ -38,6 +23,26 @@ def toggle_scent_visible():
 
 
 keymap = {
-    pygame.K_ESCAPE: quit,
-    pygame.K_F3: toggle_scent_visible
+    (pygame.K_ESCAPE): quit,
+    (pygame.K_F3): toggle_scent_visible
 }
+
+
+def check():
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            exit = True
+        elif event.type == pygame.KEYDOWN:
+            keys_pressed.append(event.key)
+        elif event.type == pygame.KEYUP:
+            keys_pressed.remove(event.key)
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            mouse_pos = pygame.mouse.get_pos()
+            for name, group in clickables.items():
+                for clickable in group:
+                    if clickable.rect.collidepoint(mouse_pos):
+                        clickable.on_left_click()
+    for keys, action in keymap.items():
+        if all([True if key in keys_pressed else False
+               for key in keys]):
+            action()
