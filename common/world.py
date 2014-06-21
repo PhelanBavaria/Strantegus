@@ -63,7 +63,7 @@ class World:
         self.create(self)
         for name, player in self.players.items():
             self.players[name] = player(self)
-        events.keymap[pygame.K_SPACE] = self.toggle_speed
+        events.keymap[(pygame.K_SPACE,)] = self.toggle_speed
         print('setting up world done')
 
     def turn(self):
