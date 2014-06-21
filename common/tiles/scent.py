@@ -34,10 +34,10 @@ class Scent(BaseTile):
                 return scent
 
     def update(self):
-        if self.amount <= 0:
-            self.kill()
-        elif self.last_update < self.world.current_tick:
+        if self.last_update < self.world.current_tick:
             ticks_passed = self.world.current_tick - self.last_update
             self.amount -= ticks_passed / SCENT_UPDATE_TICKS
             self.last_update = self.world.current_tick
             self.image.set_alpha(min(255, self.amount*2))
+        if self.amount <= 0:
+            self.kill()

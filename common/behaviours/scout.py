@@ -11,7 +11,10 @@ from common.resources import resources as default_resources
 def default(ant):
     def only_updated(scent):
         scent.update()
-        return collide_rect(ant, scent)  # Check if ant still collides
+        if scent.groups():
+            return collide_rect(ant, scent)  # Check if ant still collides
+        else:
+            return False
 
     def only_allies(scent):
         return scent.nation == ant.nation
