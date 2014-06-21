@@ -50,6 +50,8 @@ class Ant(BaseEntity):
             return
         elif ticks_passed % config.TICKS_PER_DAY == 0:
             self.age += 1
+        if self.stamina <= 0:
+            return
         self.behave_check()
         try:
             self.behaviours[self.behaviour](self)
@@ -57,11 +59,8 @@ class Ant(BaseEntity):
             print(self)
 
     def behave_check(self):
-        if self.stamina > 0:
-            self.colliding_enemies = self.enemies_colliding()
-            if self.colliding_enemies:
-                self.behaviour = 'react_to_enemy'
-            else:
-                self.behaviour = 'rest'
+        self.colliding_enemies = self.enemies_colliding()
+        if self.colliding_enemies:
+            self.behaviour = 'react_to_enemy'
         else:
             self.behaviour = 'rest'
