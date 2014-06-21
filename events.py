@@ -44,6 +44,7 @@ def check():
                     if clickable.rect.collidepoint(mouse_pos):
                         clickable.on_left_click()
     for keys, action in keymap.items():
+        print(keys)
         if all([True if key in keys_pressed else False
                for key in keys]):
             action()

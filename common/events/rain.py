@@ -18,7 +18,7 @@ class Rain(BaseEvent):
         self.intensity = random.randint(*intensity)
         self.con = False
         self.intensity_mod = 100
-        events.keymap[K_F4] = self.toggle
+        events.keymap[(K_F4,)] = self.toggle
 
     def toggle(self):
         self.con = not self.con
