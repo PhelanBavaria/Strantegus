@@ -11,7 +11,7 @@ class BaseTile(pygame.sprite.Sprite):
     x = 0
     y = 0
 
-    def __init__(self, x, y, world, image, level='surface'):
+    def __init__(self, x, y, world, image):
         pygame.sprite.Sprite.__init__(self)
         self.x = x*TILE_SIZE
         self.y = y*TILE_SIZE
@@ -21,7 +21,6 @@ class BaseTile(pygame.sprite.Sprite):
         self.rect.topleft = self.x, self.y
         self.world = world
         world.tiles.add(self)
-        world.levels[level][0].add(self)
 
     def adjacent(self, collidables):
         result = [[], [], [], []]

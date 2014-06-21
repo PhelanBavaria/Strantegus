@@ -4,17 +4,17 @@ import random
 from util.randop import weighted_choice
 from pygame.sprite import spritecollide
 from pygame.sprite import collide_rect
-from common.scents import AntScent
+from common import tiles
 from common.resources import resources as default_resources
 
 
 def default(ant):
     def only_updated(scent):
         scent.update()
-        return collide_rect(ant, scent)
+        return collide_rect(ant, scent)  # Check if ant still collides
 
     def only_allies(scent):
-        return scent.ant.nation == ant.nation
+        return scent.nation == ant.nation
 
     def only_resource(scent):
         return scent.kind == 'resource'
@@ -59,7 +59,7 @@ def default(ant):
     #       then run filters on that list
     scents = filter(only_updated, scents)
     scents = filter(only_allies, scents)
-    scents = filter(only_resource, scents)
+    # scents = filter(only_resource, scents)
     scents = filter(only_in_los, scents)
     scents = tuple(scents)
     if resources:
@@ -72,15 +72,15 @@ def default(ant):
         scent = biased_random(scents)
         ant.move(scent.rect.center)
         if not ant.world.current_tick % 20:
-            AntScent(ant, 'search')
+            tiles['scent'](ant, 10.0)
     elif 1 == random.randint(1, 5):
         ant.on_trail = False
         ant.rand_rotate()
         ant.move()
-        if not ant.world.current_tick % 20:
-            AntScent(ant, 'search')
+        # if not ant.world.current_tick % 20:
+        #     tiles['scent'](ant)
     else:
         ant.on_trail = False
         ant.move()
-        if not ant.world.current_tick % 20:
-            AntScent(ant, 'search')
+        # if not ant.world.current_tick % 20:
+        #     tiles['scent'](ant)

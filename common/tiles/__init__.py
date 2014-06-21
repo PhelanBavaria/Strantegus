@@ -1,6 +1,7 @@
 
 
 from common.tiles.tile import BaseTile
+from common.tiles.scent import Scent
 from common.tiles.resource import Resource
 from common.tiles.grass import Grass
 from common.tiles.stone import Stone
@@ -14,6 +15,7 @@ from common.tiles.colony_wall import ColonyWall
 
 tiles = {
     'base': BaseTile,
+    'scent': Scent,
     'grass': Grass,
     'stone': Stone,
     'water': Water,
