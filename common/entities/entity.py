@@ -79,7 +79,8 @@ class BaseEntity(pygame.sprite.Sprite):
         d = self._degree_to_rel[self.rotation]
 
     def move(self, goal=()):
-        # ToDo: Unuglyfy
+        # ToDo: make this more modular so inherited objects don't need to
+        #       overwrite all of this
         for danger in self.world.dangers:
             if danger.rect.collidepoint(self.rect.center):
                 self.stamina = 0
@@ -95,7 +96,12 @@ class BaseEntity(pygame.sprite.Sprite):
         else:
             rel_pos = self._degree_to_rel[self.rotation]
         rel_px = rel_pos[0]*self.speed, rel_pos[1]*self.speed
+        old_rect = self.rect
         self.rect.move_ip(*rel_px)
+        if pygame.sprite.spritecollide(self, self.world.obstacles, False):
+            self.rect = old_rect
+            self.rand_rotate()
+            return
         # rect_pos = [x + y for x, y in zip(rel_px, self.rect.center)]
         # self.rect.center = tuple(rect_pos)
         # self.rotation = self._rel_to_degree[rel_pos]

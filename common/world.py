@@ -23,6 +23,7 @@ class World:
         'levels',
         'scents',
         'dangers',
+        'obstacles',
         'players',
         'speed_mod',
         'world_events',
@@ -41,6 +42,7 @@ class World:
         self.tiles = pygame.sprite.Group()
         self.scents = pygame.sprite.Group()
         self.dangers = pygame.sprite.Group()
+        self.obstacles = pygame.sprite.Group()
         self.current_level = 'surface'
         self.levels = {
             'underground': [
