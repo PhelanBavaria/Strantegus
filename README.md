@@ -4,10 +4,18 @@ Strantegus
 The Ant Strategy Game
 
 
+Current Keybindings:
+- Esc: Exit
+- F3: Toggle scent visibility
+- F4: Toggle rain
+- Space: Pause/Unpause
+- Numpad Plus: increase speed
+- Numpad Minus: decrease speed
+
 Basegame Features:
 - Launcher
   - selectable modules
-- Moduleleader
+- Moduleloader
 - Startmenu
   - Singleplayer
   - Multiplayer
