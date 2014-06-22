@@ -2,9 +2,6 @@
 
 import random
 import pygame
-from config import TILE_SIZE
-from util.randop import weighted_choice
-from common.entities import Ant
 from common import tiles
 from common.rooms import BaseRoom
 

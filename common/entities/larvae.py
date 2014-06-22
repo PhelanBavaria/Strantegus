@@ -2,9 +2,6 @@
 
 import random
 import pygame
-from pygame.sprite import spritecollide
-import config
-from util.id_generator import id_generator
 from common.entities import Ant
 from common.entities import Worker
 from common.entities import Warrior

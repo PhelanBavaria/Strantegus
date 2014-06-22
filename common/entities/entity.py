@@ -3,6 +3,7 @@
 import random
 import pygame
 from config import TILE_SIZE
+from config import TICKS_PER_DAY
 
 
 class BaseEntity(pygame.sprite.Sprite):
@@ -25,7 +26,8 @@ class BaseEntity(pygame.sprite.Sprite):
         'strength',
         'stamina',
         'resource',
-        'lifespan']
+        'lifespan',
+        'behaviour']
     color = (0, 0, 0)
     size = 4
 
@@ -45,8 +47,21 @@ class BaseEntity(pygame.sprite.Sprite):
         self.stamina = 10
         self.resource = None
         self.lifespan = (100, 1000)
+        self.behaviours = {}
         world.entities.add(self)
         world.levels[level][1].add(self)
+
+    def update(self):
+        ticks_passed = self.world.current_tick - self.init_tick
+        if self.age > random.randint(*self.lifespan):
+            self.stamina = 0
+            return
+        elif ticks_passed % TICKS_PER_DAY == 0:
+            self.age += 1
+        if self.stamina <= 0:
+            return
+        self.behave_check()
+        self.behaviours[self.behaviour](self)
 
     def rand_rotate(self, full_spin=False, forward=True):
         if full_spin:
@@ -73,19 +88,21 @@ class BaseEntity(pygame.sprite.Sprite):
             dist = [a - b for a, b in zip(goal, self.rect.center)]
             m = max(abs(dist[0]), abs(dist[1]))
             try:
-                rel_move = round(dist[0]/m), round(dist[1]/m)
+                rel_pos = round(dist[0]/m), round(dist[1]/m)
             except ZeroDivisionError:
                 print('ZeroDivisionError', dist)
                 return
         else:
-            rel_move = self._degree_to_rel[self.rotation]
-        rel_pos = rel_move[0]*self.speed, rel_move[1]*self.speed
-        rect_pos = [x + y for x, y in zip(rel_pos, self.rect.center)]
-        self.rect.center = tuple(rect_pos)
-        self.rotation = self._rel_to_degree[rel_move]
+            rel_pos = self._degree_to_rel[self.rotation]
+        rel_px = rel_pos[0]*self.speed, rel_pos[1]*self.speed
+        self.rect.move_ip(*rel_px)
+        # rect_pos = [x + y for x, y in zip(rel_px, self.rect.center)]
+        # self.rect.center = tuple(rect_pos)
+        # self.rotation = self._rel_to_degree[rel_pos]
 
         map_width = self.world.setup['map_size'][0]*TILE_SIZE
         map_height = self.world.setup['map_size'][1]*TILE_SIZE
+        # oob == out of bounds
         oob_right = self.rect.right > map_width
         oob_bottom = self.rect.bottom > map_height
         oob_left = self.rect.left < 0
@@ -101,9 +118,9 @@ class BaseEntity(pygame.sprite.Sprite):
         if oob_right or oob_bottom or oob_left or oob_top:
             self.rand_rotate(full_spin=True, forward=False)
         if self.resource:
-            rel_pos = self._degree_to_rel[self.rotation]
-            new_x = rel_pos[0] * self.size + self.rect.center[0]
-            new_y = rel_pos[1] * self.size + self.rect.center[1]
+            rel_px = self._degree_to_rel[self.rotation]
+            new_x = rel_px[0] * self.size + self.rect.center[0]
+            new_y = rel_px[1] * self.size + self.rect.center[1]
             self.resource.rect.center = (new_x, new_y)
 
     def attack(self, enemy):

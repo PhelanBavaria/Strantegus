@@ -5,7 +5,6 @@ from time import time
 import pygame
 import config
 import events
-from util.id_generator import id_generator
 from maps import maps
 
 
