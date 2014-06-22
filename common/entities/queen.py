@@ -1,7 +1,8 @@
 
 
 import random
-import config
+from config import MAX_ANTS
+from config import TICKS_PER_DAY
 from common.entities import Ant
 from common.entities import Larvae
 
@@ -31,7 +32,7 @@ class Queen(Ant):
                     for egg in range(self.egg_tally):
                         in_ants = self.world.levels['underground'][1]
                         out_ants = self.world.levels['surface'][1]
-                        if len(in_ants) + len(out_ants) >= config.MAX_ANTS:
+                        if len(in_ants) + len(out_ants) >= MAX_ANTS:
                             break
                         larvae = self.nation.larvae_type(self.world,
                                                          self.colony)
@@ -43,5 +44,5 @@ class Queen(Ant):
                         self.first_layed_eggs = self.age
             else:
                 self.colony.add_room()
-        elif not self.world.current_tick - self.init_tick % 200:
+        elif not (self.world.current_tick - self.init_tick) % TICKS_PER_DAY:
             self.expecting = True
