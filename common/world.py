@@ -63,6 +63,8 @@ class World:
         for name, player in self.players.items():
             self.players[name] = player(self)
         events.keymap[(pygame.K_SPACE,)] = self.toggle_speed
+        events.keymap[(pygame.K_KP_PLUS,)] = self.increase_speed
+        events.keymap[(pygame.K_KP_MINUS,)] = self.decrease_speed
         print('setting up world done')
 
     def turn(self):
@@ -88,3 +90,19 @@ class World:
             self.speed_mod = 1
         elif self.speed_mod == 1:
             self.speed_mod = 0
+
+    def increase_speed(self):
+        if self.speed_mod == 1:
+            self.speed_mod = 2
+        elif self.speed_mod == 2:
+            self.speed_mod = 5
+        elif self.speed_mod == 5:
+            self.speed_mod = 10
+
+    def decrease_speed(self):
+        if self.speed_mod == 10:
+            self.speed_mod = 5
+        elif self.speed_mod == 5:
+            self.speed_mod = 2
+        elif self.speed_mod == 2:
+            self.speed_mod = 1
