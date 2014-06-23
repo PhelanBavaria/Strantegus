@@ -27,7 +27,8 @@ class BaseEntity(pygame.sprite.Sprite):
         'stamina',
         'resource',
         'lifespan',
-        'behaviour']
+        'behaviour',
+        'current_level']
     color = (0, 0, 0)
     size = 4
 
@@ -48,8 +49,9 @@ class BaseEntity(pygame.sprite.Sprite):
         self.resource = None
         self.lifespan = (100, 1000)
         self.behaviours = {}
+        self.current_level = level
         world.entities.add(self)
-        world.levels[level][1].add(self)
+        world.levels[level]['foreground'].add(self)
 
     def update(self):
         ticks_passed = self.world.current_tick - self.init_tick

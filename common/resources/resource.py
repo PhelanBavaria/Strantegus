@@ -21,7 +21,7 @@ class BaseResource(pygame.sprite.Sprite):
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
         world.resources.add(self)
-        world.levels[level][1].add(self)
+        world.levels[level]['foreground'].add(self)
 
     def update(self):
         surface_size = (self.amount, self.amount)

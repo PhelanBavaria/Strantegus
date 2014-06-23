@@ -12,7 +12,7 @@ class Resource(BaseTile):
         self.amount = TILE_SIZE
         self.name = resource
         world.resources.add(self)
-        world.levels[level][1].add(self)
+        world.levels[level]['foreground'].add(self)
 
     def update(self):
         if self.amount == 0:

@@ -40,17 +40,18 @@ class BaseColony:
 
     def join(self, ant):
         ant.colony = self
-        self.world.levels['underground'][1].add(ant)
 
     def enter(self, ant):
-        self.world.levels['surface'][1].remove(ant)
-        self.world.levels['underground'][1].add(ant)
+        self.world.levels['surface']['foreground'].remove(ant)
+        self.world.levels['underground']['foreground'].add(ant)
+        ant.current_level = 'underground'
         ant.rotate(180)
         ant.inside = True
 
     def exit(self, ant):
-        self.world.levels['underground'][1].remove(ant)
-        self.world.levels['surface'][1].add(ant)
+        self.world.levels['underground']['foreground'].remove(ant)
+        self.world.levels['surface']['foreground'].add(ant)
+        ant.current_level = 'surface'
         ant.rand_rotate(full_spin=True)
         if ant.exit_hole is None:
             ant.exit_hole = random.choice(list(self.entrances))

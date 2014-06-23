@@ -10,7 +10,7 @@ def default(ant):
     ant.resource = None
     ant.colony.exit(ant)
     ant.behaviour = None
-    ants = list(filter(same_ant_type, ant.world.levels['underground'][1]))
+    ants = list(filter(same_ant_type, ant.world.levels['underground']['foreground']))
     for i in range(min(len(ants), 2)):
         recr_ant = random.choice(ants)
         ant.colony.exit(recr_ant)

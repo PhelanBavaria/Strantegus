@@ -56,7 +56,8 @@ def default(ant):
         ant.smell_timer = random.randint(15, 30)
         return
     resources = spritecollide(ant, ant.world.resources, False)
-    scents = spritecollide(ant, ant.world.scents, False)
+    scent_level = ant.world.levels[ant.current_level]['scents']
+    scents = spritecollide(ant, scent_level, False)
     # ToDo: would combining filters reduce lag?
     # ToDo: get random pixel of each scent into a list
     #       then run filters on that list

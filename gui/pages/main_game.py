@@ -11,5 +11,5 @@ class MainGame(BasePage):
 
     def draw(self):
         events.clickables['world'] = self.world.clickables
-        for game_objects in self.world.levels[self.world.current_level]:
-            game_objects.draw(self.gui.screen)
+        for gobjects in self.world.levels[self.world.current_level].values():
+            gobjects.draw(self.gui.screen)

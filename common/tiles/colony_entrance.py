@@ -11,4 +11,4 @@ class ColonyEntrance(BaseTile):
         self.colony = colony
         BaseTile.__init__(self, x, y, world, 'colony_entrance')
         colony.entrances.add(self)
-        world.levels['surface'][0].add(self)
+        world.levels['surface']['background'].add(self)

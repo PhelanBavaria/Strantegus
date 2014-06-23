@@ -1,8 +1,10 @@
 
 
+from collections import OrderedDict
 import random
 from time import time
 import pygame
+from pygame.sprite import OrderedUpdates
 import config
 import events
 from maps import maps
@@ -40,21 +42,21 @@ class World:
         self.entities = pygame.sprite.Group()
         self.resources = pygame.sprite.Group()
         self.tiles = pygame.sprite.Group()
-        self.scents = pygame.sprite.Group()
         self.dangers = pygame.sprite.Group()
         self.obstacles = pygame.sprite.Group()
         self.current_level = 'surface'
         self.levels = {
-            'underground': [
-                pygame.sprite.OrderedUpdates(),  # Background
-                pygame.sprite.OrderedUpdates()   # Foreground
-            ],
-            'surface': [
-                pygame.sprite.OrderedUpdates(),  # Floor
-                pygame.sprite.OrderedUpdates(),  # Surface
-                pygame.sprite.OrderedUpdates()   # Air
-            ]
+            'underground': OrderedDict(),
+            'surface': OrderedDict()
         }
+        self.levels['underground']['background'] = OrderedUpdates()
+        self.levels['underground']['foreground'] = OrderedUpdates()
+        self.levels['underground']['scents'] = OrderedUpdates()
+        self.levels['surface']['background'] = OrderedUpdates()
+        self.levels['surface']['foreground'] = OrderedUpdates()
+        self.levels['surface']['scents'] = OrderedUpdates()
+        self.levels['surface']['air'] = OrderedUpdates()
+        self.scents = pygame.sprite.Group()
         self.players = {}
         self.clickables = pygame.sprite.Group()
         self.create = maps[setup['map_name']].create
