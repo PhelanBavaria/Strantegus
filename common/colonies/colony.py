@@ -2,6 +2,7 @@
 
 import random
 import pygame
+from config import TILE_SIZE
 from common import tiles
 from common.rooms import BaseRoom
 
@@ -24,7 +25,10 @@ class BaseColony:
         self.entrances = pygame.sprite.Group()
         self.resource_storage = {}
         self.join(leader)
-        # world.tiles.add(self)
+        pos = leader.rect.center
+        x, y = pos[0]//TILE_SIZE, pos[1]//TILE_SIZE
+        colony.tiles['entrance'](world, self, x, y)
+        colony.tiles['dirt'](world, self, x, y)
 
     def store(self, resource):
         if type(resource) not in self.resource_storage.keys():
