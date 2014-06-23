@@ -67,6 +67,10 @@ class World:
         events.keymap[(pygame.K_SPACE,)] = self.toggle_speed
         events.keymap[(pygame.K_KP_PLUS,)] = self.increase_speed
         events.keymap[(pygame.K_KP_MINUS,)] = self.decrease_speed
+        events.keymap[(pygame.K_PAGEUP,)] = self.level_up
+        events.keymap[(pygame.K_PAGEDOWN,)] = self.level_down
+        events.keymap[(278,)] = self.first_level  # Pos1
+        events.keymap[(279,)] = self.last_level  # End
         print('setting up world done')
 
     def turn(self):
@@ -108,3 +112,29 @@ class World:
             self.speed_mod = 2
         elif self.speed_mod == 2:
             self.speed_mod = 1
+
+    def level_up(self):
+        keys = list(self.levels.keys())
+        i_up = keys.index(self.current_level) - 1
+        if i_up >= 0:
+            k_up = keys[i_up]
+            self.current_level = k_up
+        else:
+            return
+
+    def level_down(self):
+        keys = list(self.levels.keys())
+        i_down = keys.index(self.current_level) + 1
+        try:
+            k_down = keys[i_down]
+        except IndexError:
+            return
+        self.current_level = k_down
+
+    def first_level(self):
+        k_first = list(self.levels.keys())[0]
+        self.current_level = k_first
+
+    def last_level(self):
+        k_last = list(self.levels.keys())[-1]
+        self.current_level = k_last

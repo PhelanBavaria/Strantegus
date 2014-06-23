@@ -27,8 +27,8 @@ class BaseColony:
         self.join(leader)
         pos = leader.rect.center
         x, y = pos[0]//TILE_SIZE, pos[1]//TILE_SIZE
-        colony.tiles['entrance'](world, self, x, y)
-        colony.tiles['dirt'](world, self, x, y)
+        self.tiles['entrance'](world, self, x, y)
+        tiles['dirt'](world, self, x, y)
 
     def store(self, resource):
         if type(resource) not in self.resource_storage.keys():
