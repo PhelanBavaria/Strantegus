@@ -34,7 +34,6 @@ def check():
         elif event.type == pygame.KEYDOWN:
             if event.key not in keys_pressed:
                 keys_pressed.append(event.key)
-            print(event.key)
         elif event.type == pygame.KEYUP:
             if event.key in keys_pressed:
                 keys_pressed.remove(event.key)

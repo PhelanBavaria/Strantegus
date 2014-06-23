@@ -10,7 +10,8 @@ def create(world):
     h = world.setup['map_size'][1]
     for y in range(h):
         for x in range(w):
-            tile = tiles['grass'](world, x, y)
+            tiles['grass'](world, x, y)
+            tiles['dirt_wall'](world, x, y)
             #draw_groups['tiles'].add(tile)
             #_map[(x, y)] = {
             #    'tile': tile,
