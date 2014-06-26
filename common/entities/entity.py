@@ -27,7 +27,7 @@ class BaseEntity(pygame.sprite.Sprite):
         'stamina',
         'resource',
         'lifespan',
-        'behaviour',
+        'job',
         'current_level']
     color = (0, 0, 0)
     size = 4
@@ -48,7 +48,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self.stamina = 10
         self.resource = None
         self.lifespan = (100, 1000)
-        self.behaviours = {}
+        self.job = None
         self.current_level = level
         world.entities.add(self)
         world.levels[level]['foreground'].add(self)
@@ -62,8 +62,9 @@ class BaseEntity(pygame.sprite.Sprite):
             self.age += 1
         if self.stamina <= 0:
             return
-        self.behave_check()
-        self.behaviours[self.behaviour](self)
+        elif self.job:
+            self.job.update()
+            self.job.execute()
 
     def rand_rotate(self, full_spin=False, forward=True):
         if full_spin:

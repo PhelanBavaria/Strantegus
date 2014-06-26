@@ -14,7 +14,7 @@ class Warrior(entities.Warrior):
 
 
 class Larvae(entities.Larvae):
-    def hatching_type(self):
+    def select_type(self):
         if 1 == random.randint(1, 10):
             ant_type = Warrior
         else:

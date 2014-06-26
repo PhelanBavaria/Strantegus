@@ -9,11 +9,11 @@ def default(ant):
     ant.colony.store(ant.resource)
     ant.resource = None
     ant.colony.exit(ant)
-    ant.behaviour = None
+    ant.behavior = None
     ants = list(filter(same_ant_type, ant.world.levels['underground']['foreground']))
     for i in range(min(len(ants), 2)):
         recr_ant = random.choice(ants)
         ant.colony.exit(recr_ant)
-        recr_ant.behaviour = ant.behaviour
+        recr_ant.behavior = ant.behavior
         recr_ant.rect.center = ant.rect.center
         recr_ant.rotation = ant.rotation
