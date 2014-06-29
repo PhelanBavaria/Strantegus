@@ -30,7 +30,7 @@ keymap = {
 def check():
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            exit = True
+            quit()
         elif event.type == pygame.KEYDOWN:
             if event.key not in keys_pressed:
                 keys_pressed.append(event.key)
