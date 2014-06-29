@@ -5,6 +5,7 @@ import pygame
 from config import TILE_SIZE
 from common import tiles
 from common.rooms import BaseRoom
+from common.tiles import scents
 
 
 class BaseColony:
@@ -27,8 +28,10 @@ class BaseColony:
         self.join(leader)
         pos = leader.rect.center
         x, y = pos[0]//TILE_SIZE, pos[1]//TILE_SIZE
-        self.tiles['entrance'](world, self, x, y)
+        entrance = self.tiles['entrance'](world, self, x, y)
+        leader.rect = entrance.rect
         tiles['dirt'](world, self, x, y)
+        scents.Chamber(leader)
 
     def store(self, resource):
         if type(resource) not in self.resource_storage.keys():

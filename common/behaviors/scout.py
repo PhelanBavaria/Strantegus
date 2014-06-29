@@ -4,7 +4,7 @@ import random
 from util.randop import weighted_choice
 from pygame.sprite import spritecollide
 from pygame.sprite import collide_rect
-from common import tiles
+from common.tiles.scents import Trail as TrailScent
 from common.resources import resources as default_resources
 
 
@@ -76,7 +76,7 @@ def default(ant):
         scent = biased_random(scents)
         ant.move(scent.rect.center)
         if not ant.world.current_tick % 20:
-            tiles['scent'](ant, 10.0)
+            TrailScent(ant, 10.0)
     elif 1 == random.randint(1, 50):
         ant.on_trail = False
         ant.rand_rotate()

@@ -1,7 +1,7 @@
 
 
 from pygame.sprite import spritecollide
-from common import tiles
+from common.tiles import scents
 
 
 def direct(ant):
@@ -12,5 +12,5 @@ def direct(ant):
             return
     ant.move(ant.exit_hole.rect.center)
     if ant.resource and not ant.world.current_tick % 4:
-        tiles['scent'](ant)
+        scents.Resource(ant)
         #AntScent(ant, 'resource')

@@ -12,5 +12,9 @@ class Worker(Ant):
     def __init__(self, world, nation, scent=None):
         Ant.__init__(self, world, nation, scent)
         self.lifespan = (100, 365)
-        self.job = Scout(self)
         self.on_trail = False
+        #if random.choice((True, False)):
+        #    self.job = Scout(self)
+        #else:
+        #    self.job = Janitor(self)
+        self.job = Janitor(self)

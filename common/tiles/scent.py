@@ -13,6 +13,7 @@ class Scent(BaseTile):
         x = ant.rect.x//TILE_SIZE
         y = ant.rect.y//TILE_SIZE
         BaseTile.__init__(self, x, y, ant.world, 'scent')
+        self._type = self.__class__.__name__.lower()
         existing = self.exists(ant)
         if existing:
             existing.amount += amount
@@ -29,7 +30,6 @@ class Scent(BaseTile):
             self.amount = amount
             self.last_update = ant.world.current_tick
             self.current_level = level
-            ant.world.tiles.add(self)
             ant.world.scents.add(self)
             ant.world.levels[level]['scents'].add(self)
 
@@ -37,7 +37,9 @@ class Scent(BaseTile):
         scent_level = ant.world.levels[ant.current_level]['scents']
         colliding = pygame.sprite.spritecollide(self, scent_level, False)
         for scent in colliding:
-            if ant.colony == scent.colony:
+            same_colony = ant.colony == scent.colony
+            same_type = scent._type == self._type
+            if same_colony and same_type:
                 return scent
 
     def update(self):

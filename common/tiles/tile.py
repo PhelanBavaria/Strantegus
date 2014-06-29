@@ -27,7 +27,7 @@ class BaseTile(pygame.sprite.Sprite):
         for i, rel in enumerate(((0, -1), (1, 0), (0, 1), (-1, 0))):
             adj = self.rect.move(rel[0]*TILE_SIZE, rel[1]*TILE_SIZE)
             for coll in collidables:
-                if not adj.colliderect(coll.rect):
+                if adj.colliderect(coll.rect):
                     result[i].append(coll)
         return result
 
