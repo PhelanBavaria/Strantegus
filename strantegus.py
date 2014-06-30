@@ -43,7 +43,7 @@ if __name__ == '__main__':
             pages[current_page].draw()
             if config.SCENT_VISIBLE:
                 if not world.current_tick % 250:
-                    world.levels[world.current_level]['scents'].update()
+                    world.markers.update()
             info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
             info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
             info_speed_mod = gui.font.render('Speed Modifier:' + str(world.speed_mod), 1, ((10, 10, 10)))

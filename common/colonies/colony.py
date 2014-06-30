@@ -12,6 +12,7 @@ class BaseColony:
         'world',
         'leader',
         'tiles',
+        'scents'
         'resource_storage']
 
     def __init__(self, world, leader):
@@ -22,6 +23,7 @@ class BaseColony:
             'entrance': tiles['colony_entrance'],
             'wall': tiles['colony_wall']
         }
+        self.scents = pygame.sprite.Group()
         self.entrances = pygame.sprite.Group()
         self.resource_storage = {}
         self.join(leader)

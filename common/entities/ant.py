@@ -12,6 +12,7 @@ class Ant(BaseEntity):
         'inside',
         'scent',
         'colony',
+        'scents',
         'smell_timer',
         'exit_hole',
         'colliding_enemies'
@@ -23,6 +24,7 @@ class Ant(BaseEntity):
         self.scent = scent
         self.inside = True
         self.colony = None
+        self.scents = pygame.sprite.Group()
         self.smell_timer = 0
         self.colliding_enemies = ()
         self.exit_hole = None

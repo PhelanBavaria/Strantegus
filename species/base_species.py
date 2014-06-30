@@ -1,5 +1,6 @@
 
 
+import pygame
 from config import TILE_SIZE
 from util.id_generator import id_generator
 from common.colonies.dirt import Colony
@@ -19,6 +20,7 @@ class BaseSpecies:
         self.scent = id_generator()
         self.leader = self.leader_type(world, self)
         self.colonies = []
+        self.scents = pygame.sprite.Group()
 
     def establish_colony(self, coords, world, leader):
         leader.rect.center = coords[0]*TILE_SIZE, coords[1]*TILE_SIZE

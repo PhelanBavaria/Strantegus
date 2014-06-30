@@ -23,7 +23,7 @@ class World:
         'tiles',
         'current_level',
         'levels',
-        'scents',
+        'markers',
         'dangers',
         'obstacles',
         'players',
@@ -51,12 +51,10 @@ class World:
         }
         self.levels['underground']['background'] = OrderedUpdates()
         self.levels['underground']['foreground'] = OrderedUpdates()
-        self.levels['underground']['scents'] = OrderedUpdates()
         self.levels['surface']['background'] = OrderedUpdates()
         self.levels['surface']['foreground'] = OrderedUpdates()
-        self.levels['surface']['scents'] = OrderedUpdates()
         self.levels['surface']['air'] = OrderedUpdates()
-        self.scents = pygame.sprite.Group()
+        self.markers = pygame.sprite.Group()
         self.players = {}
         self.clickables = pygame.sprite.Group()
         self.create = maps[setup['map_name']].create
