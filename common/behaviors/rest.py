@@ -1,10 +1,10 @@
 
 
-import random
+from util.randop import one_in
 
 
 def rand_time(ant):
-    if 1 == random.randint(1, 4000):
+    if one_in(4000):
         ant.colony.exit(ant)
 
 

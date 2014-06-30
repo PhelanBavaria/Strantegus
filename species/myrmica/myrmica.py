@@ -1,6 +1,6 @@
 
 
-import random
+from util.randop import one_in
 from species import BaseSpecies
 from common import entities
 
@@ -20,7 +20,7 @@ class Warrior(entities.Warrior):
 
 class Larvae(entities.Larvae):
     def select_type(self):
-        if 1 == random.randint(1, 9):
+        if one_in(9):
             ant_type = Warrior
         else:
             ant_type = Media

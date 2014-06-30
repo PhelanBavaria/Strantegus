@@ -2,6 +2,7 @@
 
 import random
 from util.randop import weighted_choice
+from util.randop import one_in
 from pygame.sprite import spritecollide
 from pygame.sprite import collide_rect
 from common.markers import Scent
@@ -54,7 +55,7 @@ def default(ant):
     elif ant.smell_timer:
         ant.smell_timer -= 1
         return
-    elif 1 is random.randint(1, 60):
+    elif one_in(60):
         ant.smell_timer = random.randint(15, 30)
         return
     resources = spritecollide(ant, ant.world.resources, False)
@@ -76,7 +77,7 @@ def default(ant):
         ant.move((scent.x, scent.y))
         if not ant.world.current_tick % 20:
             Scent(ant, 'resource', amount=10.0)
-    elif 1 == random.randint(1, 50):
+    elif one_in(50):
         ant.on_trail = False
         ant.rand_rotate()
         ant.move()

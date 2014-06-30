@@ -1,12 +1,11 @@
 
 
-import random
+from util.randop import one_in
 
 
 def randomly(ant):
-    if 1 == random.randint(1, 4000):
+    if one_in(4000):
         ant.colony.exit(ant)
 
 
-def recruited(ant):
-    
+def recruited(ant):    

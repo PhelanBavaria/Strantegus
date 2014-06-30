@@ -1,6 +1,6 @@
 
 
-import random
+from util.randop import one_in
 from config import MAX_ANTS
 from config import TICKS_PER_DAY
 from common.jobs import BaseJob
@@ -14,7 +14,7 @@ class Spawner(BaseJob):
 
     def select_behavior(self):
         if not self.ant.colony:
-            if 1 == random.randint(1, 200):
+            if one_in(200):
                 coords = self.ant.world.randloc()
                 self.ant.nation.establish_colony(coords, self.ant.world, self.ant)
         elif self.ant.expecting:

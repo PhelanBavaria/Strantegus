@@ -4,6 +4,7 @@ import random
 from pygame import K_F4
 from config import TICKS_PER_DAY
 import events
+from util.randop import one_in
 from common.events import BaseEvent
 from common import tiles
 
@@ -35,7 +36,7 @@ class Rain(BaseEvent):
         #     print('rain effect for:', self.progress, self.duration)
         mod = self.intensity_mod
         extra_drop_chance = mod - (self.intensity % mod)
-        extra_drop = int(1 == random.randint(1, extra_drop_chance))
+        extra_drop = one_in(extra_drop_chance)
         drops = self.intensity // mod + extra_drop
         for drop in range(drops):
             x, y = self.world.randloc()

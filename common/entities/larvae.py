@@ -1,6 +1,6 @@
 
 
-import random
+from util.randop import one_in
 from common.entities import Ant
 from common.entities import Worker
 from common.entities import Warrior
@@ -16,7 +16,7 @@ class Larvae(Ant):
         self.colony = colony
 
     def select_type(self):
-        if 1 == random.randint(1, 10):
+        if one_in(10):
             ant_type = Warrior
         else:
             ant_type = Worker

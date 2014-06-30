@@ -1,6 +1,6 @@
 
 
-import random
+from util.randop import one_in
 from common.jobs import BaseJob
 from common.behaviors import scout
 from common.behaviors import store
@@ -27,7 +27,7 @@ class Scout(BaseJob):
                          in zip(base, self.ant.rect.center)]
             self.ant.resource.rect.center = res_coord
             self.behavior = 'return_home'
-        elif not self.ant.on_trail and 1 == random.randint(1, 1000):
+        elif not self.ant.on_trail and one_in(1000):
             self.behavior = 'return_home'
         else:
             self.behavior = 'search'
