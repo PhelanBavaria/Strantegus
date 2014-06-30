@@ -28,5 +28,12 @@ class GUI:
     def draw_info(self, info, pos):
         self.screen.blit(info, pos)
 
+    def draw_markers(self, markers):
+        for marker in markers:
+            visual = pygame.Surface((config.MARKER_SIZE, config.MARKER_SIZE))
+            visual = visual.convert()
+            visual.fill(marker.color)
+            self.screen.blit(visual, (marker.x, marker.y))
+
     def update(self):
         pygame.display.flip()

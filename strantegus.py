@@ -42,6 +42,7 @@ if __name__ == '__main__':
         if turn_time - last_frame >= 1/config.FPS:
             pages[current_page].draw()
             if config.SCENT_VISIBLE:
+                gui.draw_markers(world.markers)
                 if not world.current_tick % 250:
                     world.markers.update()
             info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))

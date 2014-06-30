@@ -1,6 +1,7 @@
 
 
 TILE_SIZE = 8
+MARKER_SIZE = 8
 FPS = 20
 TPS = 20
 SCENT_VISIBLE = True
