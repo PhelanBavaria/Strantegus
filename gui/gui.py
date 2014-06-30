@@ -32,7 +32,11 @@ class GUI:
         for marker in markers:
             visual = pygame.Surface((config.MARKER_SIZE, config.MARKER_SIZE))
             visual = visual.convert()
-            visual.fill(marker.color)
+            try:
+                visual.fill(marker.color)
+            except TypeError:
+                print(marker.color)
+            visual.set_alpha(marker.alpha)
             self.screen.blit(visual, (marker.x, marker.y))
 
     def update(self):

@@ -24,6 +24,7 @@ class World:
         'current_level',
         'levels',
         'markers',
+        'scents',
         'dangers',
         'obstacles',
         'players',
@@ -55,6 +56,7 @@ class World:
         self.levels['surface']['foreground'] = OrderedUpdates()
         self.levels['surface']['air'] = OrderedUpdates()
         self.markers = pygame.sprite.Group()
+        self.scents = {}
         self.players = {}
         self.clickables = pygame.sprite.Group()
         self.create = maps[setup['map_name']].create

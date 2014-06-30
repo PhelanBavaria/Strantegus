@@ -17,3 +17,10 @@ def weighted_choice(weights, choices):
             return choices[i]
     raise ValueError('Function has to return value, \
 check if weights are not negative')
+
+
+def rand_rgb():
+    r = random.randint(0, 255)
+    g = random.randint(0, 255)
+    b = random.randint(0, 255)
+    return r, g, b
