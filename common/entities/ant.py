@@ -22,6 +22,7 @@ class Ant(BaseEntity):
 
     def __init__(self, world, nation, scent=None):
         BaseEntity.__init__(self, world)
+        self.strength = self.size * 100
         self.nation = nation
         self.scent = scent
         self.sniffer = 40

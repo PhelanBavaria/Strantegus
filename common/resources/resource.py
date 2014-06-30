@@ -12,7 +12,7 @@ class BaseResource(pygame.sprite.Sprite):
 
     def __init__(self, world, amount, level='surface'):
         pygame.sprite.Sprite.__init__(self)
-        surface_size = (amount, amount)
+        surface_size = (amount/100, amount/100)
         self.world = world
         self.amount = amount
         self.name = 'noname'
@@ -20,16 +20,16 @@ class BaseResource(pygame.sprite.Sprite):
         self.image.convert()
         self.image.fill(self.color)
         self.rect = self.image.get_rect()
-        world.resources.add(self)
+        #world.resources.add(self)
         world.levels[level]['foreground'].add(self)
 
-    def update(self):
-        surface_size = (self.amount, self.amount)
-        center = self.rect.center
-        self.rect.size = surface_size
-        self.image = pygame.transform.scale(self.image, surface_size)
-        self.rect.center = center
-        if self.amount == 0:
-            self.kill()
-        elif self.amount < 0:
-            raise ValueError('Amount of resource '+str(self)+' below 0')
+    # def update(self):
+    #     surface_size = (self.amount, self.amount)
+    #     center = self.rect.center
+    #     self.rect.size = surface_size
+    #     self.image = pygame.transform.scale(self.image, surface_size)
+    #     self.rect.center = center
+    #     if self.amount == 0:
+    #         self.kill()
+    #     elif self.amount < 0:
+    #         raise ValueError('Amount of resource '+str(self)+' below 0')

@@ -19,4 +19,4 @@ def create(world):
             #    'resources': [],
             #    'structure': None
             #    }
-    world.world_events.append(Rain(world, intensity=(1, 100)))
+    world.world_events.append(Rain(world, intensity=(100, 100)))

@@ -58,13 +58,22 @@ def default(ant):
     elif one_in(60):
         ant.smell_timer = random.randint(15, 30)
         return
+    entities = spritecollide(ant, ant.world.entities, False)
+    entities = [entity for entity in entities if entity.stamina <= 0]
     resources = spritecollide(ant, ant.world.resources, False)
+    resources += entities
     if resources:
         res = resources[0]
-        amount = min(ant.strength, res.amount)
-        res.amount -= amount
-        ant.resource = default_resources[res.name](ant.world, amount)
-        return
+        try:
+            amount = min(ant.strength, res.amount)
+            res.amount -= amount
+            ant.resource = default_resources[res.name](ant.world, amount)
+            return
+        except AttributeError:
+            if ant.strength > res.size:
+                ant.resource = res
+                print('here')
+                return
     # ToDo: would combining filters reduce lag?
     scents = filter(only_in_range, ant.colony.scents)
     scents = filter(only_allies, scents)
