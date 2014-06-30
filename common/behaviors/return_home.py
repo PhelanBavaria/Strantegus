@@ -11,4 +11,4 @@ def direct(ant):
     else:
         ant.move(ant.exit_hole.rect.center)
         if ant.resource and not ant.world.current_tick % 4:
-            Scent(ant)
+            Scent(ant, 'resource')

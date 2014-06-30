@@ -9,10 +9,10 @@ from common.resources import resources as default_resources
 
 
 def default(ant):
-    def only_updated(scent):
+    def only_in_range(scent):
         scent.update()
-        if scent.groups():
-            return collide_rect(ant, scent)  # Check if ant still collides
+        if scent.groups:
+            return ant.can_sniff(scent)
         else:
             return False
 
@@ -24,7 +24,9 @@ def default(ant):
 
     def only_in_los(scent):
         # ToDo: Unuglyfy
-        dist = [a - b for a, b in zip(scent.rect.center, ant.rect.center)]
+        x = ant.rect.center[0]
+        y = ant.rect.center[1]
+        dist = scent.x - x, scent.y - y
         m = max(abs(dist[0]), abs(dist[1]))
         try:
             rel_move = round(dist[0]/m), round(dist[1]/m)
@@ -41,7 +43,7 @@ def default(ant):
         return any((direct, left, right))
 
     def biased_random(scents):
-        # ToDo: add favor of straight routes
+        # ToDo: add distance to be a weight, not just amount
         weights = []
         for scent in scents:
             weights.append(scent.amount)
@@ -56,27 +58,24 @@ def default(ant):
         ant.smell_timer = random.randint(15, 30)
         return
     resources = spritecollide(ant, ant.world.resources, False)
-    scent_level = ant.world.levels[ant.current_level]['scents']
-    scents = spritecollide(ant, scent_level, False)
-    # ToDo: would combining filters reduce lag?
-    # ToDo: get random pixel of each scent into a list
-    #       then run filters on that list
-    scents = filter(only_updated, scents)
-    scents = filter(only_allies, scents)
-    # scents = filter(only_resource, scents)
-    scents = filter(only_in_los, scents)
-    scents = tuple(scents)
     if resources:
         res = resources[0]
         amount = min(ant.strength, res.amount)
         res.amount -= amount
         ant.resource = default_resources[res.name](ant.world, amount)
-    elif scents:
+        return
+    # ToDo: would combining filters reduce lag?
+    scents = filter(only_in_range, ant.colony.scents)
+    scents = filter(only_allies, scents)
+    # scents = filter(only_resource, scents)
+    scents = filter(only_in_los, scents)
+    scents = tuple(scents)
+    if scents:
         ant.on_trail = True
         scent = biased_random(scents)
-        ant.move(scent.rect.center)
+        ant.move((scent.x, scent.y))
         if not ant.world.current_tick % 20:
-            Scent(ant, 10.0)
+            Scent(ant, 'resource', amount=10.0)
     elif 1 == random.randint(1, 50):
         ant.on_trail = False
         ant.rand_rotate()
