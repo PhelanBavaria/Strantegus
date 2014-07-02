@@ -21,9 +21,7 @@ class Spawner(BaseJob):
             for room in self.ant.colony.rooms:
                 if room.content_type in ('', 'spawn_cell'):
                     for egg in range(self.ant.egg_tally):
-                        in_ants = self.ant.world.levels['underground']['foreground']
-                        out_ants = self.ant.world.levels['surface']['foreground']
-                        if len(in_ants) + len(out_ants) >= MAX_ANTS:
+                        if len(list(self.ant.colony.ants)) >= MAX_ANTS:
                             break
                         larvae = self.ant.nation.larvae_type(self.ant.world,
                                                          self.ant.colony)

@@ -12,13 +12,15 @@ class BaseColony:
         'world',
         'leader',
         'tiles',
-        'scents'
+        'ants',
+        'scents',
         'resource_storage']
 
     def __init__(self, world, leader):
         self.world = world
         self.leader = leader
         self.rooms = pygame.sprite.Group()
+        self.ants = pygame.sprite.Group()
         self.tiles = {
             'entrance': tiles['colony_entrance'],
             'wall': tiles['colony_wall']
@@ -42,6 +44,7 @@ class BaseColony:
 
     def join(self, ant):
         ant.colony = self
+        self.ants.add(ant)
 
     def enter(self, ant):
         self.world.levels['surface']['foreground'].remove(ant)
