@@ -24,7 +24,7 @@ if __name__ == '__main__':
         },
         'map_name': 'test',
         'map_size': (100, 60),
-        'seed': 333
+        'seed': 555
     }
     world = World(setup)
 

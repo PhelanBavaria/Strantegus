@@ -90,10 +90,12 @@ def default(ant):
         ant.on_trail = False
         ant.rand_rotate()
         ant.move()
-        # if not ant.world.current_tick % 20:
-        #     tiles['scent'](ant)
+        if not ant.world.current_tick % 20:
+            ant.home_path.append(ant.rect.center)
+            #Scent(ant, 'home_trail')
     else:
         ant.on_trail = False
         ant.move()
-        # if not ant.world.current_tick % 20:
-        #     tiles['scent'](ant)
+        if not ant.world.current_tick % 20:
+            ant.home_path.append(ant.rect.center)
+            #Scent(ant, 'home_trail')

@@ -10,7 +10,7 @@ class BaseJob:
         self.ant = ant
         self.behavior = 'rest'
         self.behaviors = {}
-        self.behaviors['return_home'] = return_home.direct
+        self.behaviors['return_home'] = return_home.follow_trail
         self.behaviors['react_to_enemy'] = react_to_enemy.hostile
         self.behaviors['rest'] = rest.indefinite
 

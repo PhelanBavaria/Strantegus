@@ -76,6 +76,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self.rotate(rotation)
 
     def rotate(self, rotation):
+        self.on_rotation(rotation)
         self.rotation = (self.rotation + rotation) % 360
         if self.rotation < 0:
             self.rotation += 360
@@ -109,6 +110,7 @@ class BaseEntity(pygame.sprite.Sprite):
                 self.rect = old_rect
                 self.rand_rotate()
                 return
+        self.on_move(self.rect.center)
         # rect_pos = [x + y for x, y in zip(rel_px, self.rect.center)]
         # self.rect.center = tuple(rect_pos)
         # self.rotation = self._rel_to_degree[rel_pos]
@@ -167,3 +169,9 @@ class BaseEntity(pygame.sprite.Sprite):
     def sprite_in_los(self, sprite):
         sprite.rect
         self.rotation
+
+    def on_rotation(self, rotation):
+        pass
+
+    def on_move(self, move):
+        pass

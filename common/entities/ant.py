@@ -17,6 +17,7 @@ class Ant(BaseEntity):
         'scents',
         'smell_timer',
         'exit_hole',
+        'home_path',
         'colliding_enemies'
     ]
 
@@ -32,6 +33,7 @@ class Ant(BaseEntity):
         self.smell_timer = 0
         self.colliding_enemies = ()
         self.exit_hole = None
+        self.home_path = []
         if scent:
             self.scent = scent
         else:
