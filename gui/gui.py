@@ -36,7 +36,8 @@ class GUI:
                 visual.fill(marker.color)
             except TypeError:
                 print(marker.color)
-            visual.set_alpha(marker.alpha)
+            if config.MARKER_ALPHA:
+                visual.set_alpha(marker.alpha)
             self.screen.blit(visual, (marker.x, marker.y))
 
     def update(self):
