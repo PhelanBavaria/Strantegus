@@ -77,7 +77,7 @@ def default(ant):
     # ToDo: would combining filters reduce lag?
     scents = filter(only_in_range, ant.colony.scents)
     scents = filter(only_allies, scents)
-    # scents = filter(only_resource, scents)
+    scents = filter(only_resource, scents)
     scents = filter(only_in_los, scents)
     scents = tuple(scents)
     if scents:
