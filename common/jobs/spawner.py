@@ -18,6 +18,8 @@ class Spawner(BaseJob):
                 coords = self.ant.world.randloc()
                 self.ant.nation.establish_colony(coords, self.ant.world, self.ant)
         elif self.ant.expecting:
+            if len(list(self.ant.world.entities)) >= MAX_ANTS:
+                return
             for room in self.ant.colony.rooms:
                 if room.content_type in ('', 'spawn_cell'):
                     for egg in range(self.ant.egg_tally):
@@ -30,6 +32,8 @@ class Spawner(BaseJob):
                         larvae.rect.center = self.ant.rect.center
                         self.ant.colony.join(larvae)
                         room.store(larvae)
+                        if len(list(self.ant.world.entities)) >= MAX_ANTS:
+                            return
                     self.ant.expecting = False
                     if not self.ant.first_layed_eggs:
                         self.ant.first_layed_eggs = self.ant.age
