@@ -29,5 +29,7 @@ class Scout(BaseJob):
             self.behavior = 'return_home'
         elif not self.ant.on_trail and one_in(1000):
             self.behavior = 'return_home'
+        elif self.behavior == 'return_home':
+            return
         else:
             self.behavior = 'search'
