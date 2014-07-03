@@ -50,14 +50,13 @@ class BaseColony:
         self.world.levels['surface']['foreground'].remove(ant)
         self.world.levels['underground']['foreground'].add(ant)
         ant.current_level = 'underground'
-        ant.rotate(180)
         ant.inside = True
 
     def exit(self, ant):
         self.world.levels['underground']['foreground'].remove(ant)
         self.world.levels['surface']['foreground'].add(ant)
         ant.current_level = 'surface'
-        ant.rand_rotate(full_spin=True)
+        ant.rotate(180)
         if ant.exit_hole is None:
             ant.exit_hole = random.choice(list(self.entrances))
         ant.rect.center = ant.exit_hole.rect.center

@@ -19,12 +19,12 @@ if __name__ == '__main__':
     gui = GUI()
     setup = {
         'players': {
-            'brown': species.normal['formica']['fusca'],
+            #'brown': species.normal['formica']['fusca'],
             'red': species.normal['myrmica']['rubra']
         },
         'map_name': 'test',
         'map_size': (100, 60),
-        'seed': 555
+        'seed': 666
     }
     world = World(setup)
 
