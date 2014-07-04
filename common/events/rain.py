@@ -3,7 +3,7 @@
 import random
 from pygame import K_F4
 from config import TICKS_PER_DAY
-import events
+import keymap
 from util.randop import one_in
 from common.events import BaseEvent
 from common import tiles
@@ -19,7 +19,7 @@ class Rain(BaseEvent):
         self.intensity = random.randint(*intensity)
         self.con = False
         self.intensity_mod = 100
-        events.keymap[(K_F4,)] = self.toggle
+        keymap.add((K_F4,), self.toggle)
 
     def toggle(self):
         self.con = not self.con

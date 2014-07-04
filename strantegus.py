@@ -1,22 +1,93 @@
 
 import sys
 from time import time
+import pygame
 import config
 import util
 import technologies
 import gui
-import events
+import keymap
+from common.world import World
+from gui.gui import GUI
+
+
+class Game:
+    def __init__(self, player):
+        self.player = player
+        self.gui = GUI()
+        self.worlds = []
+        self.current_page = 'main_menu'
+        self.pages = {}
+        self.exit = False
+        self.clickables = {}
+        self.keys_pressed = []
+        keymap.add((pygame.K_ESCAPE,), self.quit)
+
+    def add_world(self, setup):
+        self.worlds.append(World(setup))
+
+    def check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            elif event.type == pygame.KEYDOWN:
+                if event.key not in self.keys_pressed:
+                    self.keys_pressed.append(event.key)
+            elif event.type == pygame.KEYUP:
+                if event.key in self.keys_pressed:
+                    self.keys_pressed.remove(event.key)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                for name, group in self.clickables.items():
+                    for clickable in group:
+                        if clickable.rect.collidepoint(mouse_pos):
+                            clickable.on_left_click()
+        for keys, action in keymap.items():
+            if all([True if key in self.keys_pressed else False
+                   for key in keys]):
+                action()
+
+    def main_loop(self):
+        last_frame = time()
+        while not events.exit:
+            turn_time = time()
+            for world in self.worlds:
+                world.update()
+            if turn_time - last_frame >= 1/config.FPS:
+                pages[current_page].draw()
+                if config.SCENT_VISIBLE:
+                    gui.draw_markers(world.markers)
+                    if not world.current_tick % 250:
+                        world.markers.update()
+                info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
+                info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
+                info_speed_mod = gui.font.render('Speed Modifier:' + str(world.speed_mod), 1, ((10, 10, 10)))
+                info_current_level = gui.font.render('Current Level:' + world.current_level, 1, ((10, 10, 10)))
+                gui.draw_info(info_current_day, (10, 10))
+                gui.draw_info(info_current_tick, (10, 20))
+                gui.draw_info(info_speed_mod, (10, 30))
+                gui.draw_info(info_current_level, (10, 40))
+                gui.draw()
+                gui.update()
+                last_frame = time()
+            self.check_events()
+
+    def quit(self):
+        if self.exit:
+            pygame.quit()
+        else:
+            self.exit = True
+
 
 
 if __name__ == '__main__':
     from pprint import pprint
     import species
-    from common.world import World
-    from gui.gui import GUI
     from common.tiles import Sugar
     from gui.pages import MainGame
 
-    gui = GUI()
+    local_player = None
+    game = Game()
     setup = {
         'players': {
             #'brown': species.normal['formica']['fusca'],
@@ -26,39 +97,16 @@ if __name__ == '__main__':
         'map_size': (100, 60),
         'seed': 666
     }
-    world = World(setup)
+    game.add_world(setup)
+    game.current_page = 'main_game'
+    game.pages['main_game'] = MainGame(game)
 
-    current_page = 'main_game'
-    pages = {
-        'main_game': MainGame(gui, world)
-    }
-    test_sugar = Sugar(50, 30, world)
+    test_sugar = Sugar(50, 30, game.worlds[0])
     test_sugar.structure(10)
 
-    last_frame = time()
-    while not events.exit:
-        turn_time = time()
-        world.turn()
-        if turn_time - last_frame >= 1/config.FPS:
-            pages[current_page].draw()
-            if config.SCENT_VISIBLE:
-                gui.draw_markers(world.markers)
-                if not world.current_tick % 250:
-                    world.markers.update()
-            info_current_day = gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
-            info_current_tick = gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
-            info_speed_mod = gui.font.render('Speed Modifier:' + str(world.speed_mod), 1, ((10, 10, 10)))
-            info_current_level = gui.font.render('Current Level:' + world.current_level, 1, ((10, 10, 10)))
-            gui.draw_info(info_current_day, (10, 10))
-            gui.draw_info(info_current_tick, (10, 20))
-            gui.draw_info(info_speed_mod, (10, 30))
-            gui.draw_info(info_current_level, (10, 40))
-            gui.draw()
-            gui.update()
-            events.check()
-            last_frame = time()
+    game.main_loop()
 
-    print(len(tuple(world.entities)), 'entities')
+    print(len(tuple(game.worlds[0].entities)), 'entities')
     print('testing ends')
     events.quit()
     sys.exit()

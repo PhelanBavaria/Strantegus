@@ -6,7 +6,7 @@ from time import time
 import pygame
 from pygame.sprite import OrderedUpdates
 import config
-import events
+import keymap
 from maps import maps
 
 
@@ -66,16 +66,16 @@ class World:
         self.create(self)
         for name, player in self.players.items():
             self.players[name] = player(self)
-        events.keymap[(pygame.K_SPACE,)] = self.toggle_speed
-        events.keymap[(pygame.K_KP_PLUS,)] = self.increase_speed
-        events.keymap[(pygame.K_KP_MINUS,)] = self.decrease_speed
-        events.keymap[(pygame.K_PAGEUP,)] = self.level_up
-        events.keymap[(pygame.K_PAGEDOWN,)] = self.level_down
-        events.keymap[(278,)] = self.first_level  # Pos1
-        events.keymap[(279,)] = self.last_level  # End
+        keymap.add((pygame.K_SPACE,), self.toggle_speed)
+        keymap.add((pygame.K_KP_PLUS,), self.increase_speed)
+        keymap.add((pygame.K_KP_MINUS,), self.decrease_speed)
+        keymap.add((pygame.K_PAGEUP,), self.level_up)
+        keymap.add((pygame.K_PAGEDOWN,), self.level_down)
+        keymap.add((278,), self.first_level)  # Pos1
+        keymap.add((279,), self.last_level)  # End
         print('setting up world done')
 
-    def turn(self):
+    def update(self):
         turn_time = time()
         spt = turn_time - self.last_tick
         if spt*self.speed_mod >= 1/config.TPS:
