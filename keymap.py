@@ -14,6 +14,3 @@ keymap = {
 
 def add(keys, action):
     keymap[keys] = action
-    print('KeyAction pair added:')
-    print('Keys:   ', [pygame.key.name(k) for k in keys])
-    print('Action: ', action)
