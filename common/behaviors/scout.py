@@ -34,13 +34,13 @@ def default(ant):
         except ZeroDivisionError:
             return False  # sniffer is right on top of center of scent
         direct = ant.rotation
-        left = (ant.rotation + 45) % 360
-        right = (ant.rotation - 45) % 360
+        left = ant.rotation + 45
+        right = ant.rotation - 45
         if right < 0:
             right += 360
-        direct = ant._degree_to_rel[direct] == rel_move
-        left = ant._degree_to_rel[left] == rel_move
-        right = ant._degree_to_rel[right] == rel_move
+        direct = ant._degree_to_rel[int(direct)] == rel_move
+        left = ant._degree_to_rel[int(left)] == rel_move
+        right = ant._degree_to_rel[int(right)] == rel_move
         return any((direct, left, right))
 
     def biased_random(scents):

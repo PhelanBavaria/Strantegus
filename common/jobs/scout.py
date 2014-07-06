@@ -21,7 +21,7 @@ class Scout(BaseJob):
             else:
                 self.behavior = 'rest'
         elif self.ant.resource:
-            base = self.ant._degree_to_rel[self.ant.rotation]
+            base = self.ant._degree_to_rel[int(self.ant.rotation)]
             res_coord = [self.ant.size*2*(a+b)
                          for a, b
                          in zip(base, self.ant.rect.center)]

@@ -4,6 +4,7 @@ import random
 import pygame
 from config import TILE_SIZE
 from config import TICKS_PER_DAY
+from util.degrees import Degrees
 
 
 class BaseEntity(pygame.sprite.Sprite):
@@ -41,7 +42,7 @@ class BaseEntity(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.init_tick = world.current_tick
         self.world = world
-        self.rotation = 0
+        self.rotation = Degrees()
         self.speed = 1
         self.age = 0
         self.strength = 2
@@ -77,10 +78,8 @@ class BaseEntity(pygame.sprite.Sprite):
 
     def rotate(self, rotation):
         self.on_rotation(rotation)
-        self.rotation = (self.rotation + rotation) % 360
-        if self.rotation < 0:
-            self.rotation += 360
-        d = self._degree_to_rel[self.rotation]
+        self.rotation += rotation
+        d = self._degree_to_rel[int(self.rotation)]
 
     def move(self, goal=()):
         # ToDo: make this more modular so inherited objects don't need to
@@ -98,7 +97,7 @@ class BaseEntity(pygame.sprite.Sprite):
                 print('ZeroDivisionError', dist)
                 return
         else:
-            rel_pos = self._degree_to_rel[self.rotation]
+            rel_pos = self._degree_to_rel[int(self.rotation)]
         rel_px = rel_pos[0]*self.speed, rel_pos[1]*self.speed
         old_rect = self.rect
         self.rect.move_ip(*rel_px)
@@ -110,6 +109,7 @@ class BaseEntity(pygame.sprite.Sprite):
                 self.rect = old_rect
                 self.rand_rotate()
                 return
+        self.rotation = Degrees(self._rel_to_degree[rel_pos])
         self.on_move(self.rect.center)
         # rect_pos = [x + y for x, y in zip(rel_px, self.rect.center)]
         # self.rect.center = tuple(rect_pos)
@@ -133,7 +133,15 @@ class BaseEntity(pygame.sprite.Sprite):
         if oob_right or oob_bottom or oob_left or oob_top:
             self.rand_rotate(full_spin=True, forward=False)
         if self.resource:
-            rel_px = self._degree_to_rel[self.rotation]
+            print(self.rotation)
+            try:
+                weight = self.resource.amount
+            except AttributeError:
+                weight = self.resource.size
+            if self.strength//2 >= weight:
+                rel_px = self._degree_to_rel[self.rotation]
+            elif self.strength//2 < weight:
+                rel_px = self._degree_to_rel[self.rotation+180]
             new_x = rel_px[0] * self.size + self.rect.center[0]
             new_y = rel_px[1] * self.size + self.rect.center[1]
             self.resource.rect.center = (new_x, new_y)
@@ -165,10 +173,6 @@ class BaseEntity(pygame.sprite.Sprite):
             if self.is_enemy(BaseEntity):
                 enemies.append(BaseEntity)
         return enemies
-
-    def sprite_in_los(self, sprite):
-        sprite.rect
-        self.rotation
 
     def on_rotation(self, rotation):
         pass

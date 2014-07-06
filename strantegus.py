@@ -1,4 +1,5 @@
 
+
 import sys
 from time import time
 import pygame
@@ -96,7 +97,7 @@ if __name__ == '__main__':
         },
         'map_name': 'test',
         'map_size': (100, 60),
-        'seed': 666
+        'seed': 115
     }
     game.add_world(setup)
     game.current_page = 'main_game'
