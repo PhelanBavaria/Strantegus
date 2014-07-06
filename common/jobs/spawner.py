@@ -13,10 +13,12 @@ class Spawner(BaseJob):
         self.behaviors['lay_eggs'] = lay_eggs.default
 
     def select_behavior(self):
+        def establish_colony():
+            coords = self.ant.world.randloc()
+            self.ant.nation.establish_colony(coords, self.ant.world, self.ant)
         if not self.ant.colony:
             if one_in(200):
-                coords = self.ant.world.randloc()
-                self.ant.nation.establish_colony(coords, self.ant.world, self.ant)
+                establish_colony()
         elif self.ant.expecting:
             for room in self.ant.colony.rooms:
                 if room.content_type in ('', 'spawn_cell'):

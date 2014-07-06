@@ -97,7 +97,7 @@ if __name__ == '__main__':
         },
         'map_name': 'test',
         'map_size': (100, 60),
-        'seed': 115
+        'seed': 888
     }
     game.add_world(setup)
     game.current_page = 'main_game'
@@ -111,6 +111,6 @@ if __name__ == '__main__':
     print('Keymap:')
     for keys, action in keymap.keymap.items():
         print([pygame.key.name(key) for key in keys], action)
-    print(len(tuple(game.worlds[0].entities)), 'entities')
+    print(len(tuple(game.worlds[0].entities)), 'entities', tuple(game.worlds[0].entities))
     print('testing ends')
     sys.exit()

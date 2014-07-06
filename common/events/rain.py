@@ -31,9 +31,6 @@ class Rain(BaseEvent):
         return self.con
 
     def effect(self):
-        # if not self.progress % 1000:
-        #     print('rain intensity:', self.intensity)
-        #     print('rain effect for:', self.progress, self.duration)
         mod = self.intensity_mod
         extra_drop_chance = mod - (self.intensity % mod)
         extra_drop = one_in(extra_drop_chance)

@@ -5,6 +5,7 @@ import pygame
 from config import TILE_SIZE
 from config import TICKS_PER_DAY
 from util.degrees import Degrees
+from util.mapop import out_of_bounds
 
 
 class BaseEntity(pygame.sprite.Sprite):
@@ -56,14 +57,14 @@ class BaseEntity(pygame.sprite.Sprite):
 
     def update(self):
         ticks_passed = self.world.current_tick - self.init_tick
-        if self.age > random.randint(*self.lifespan):
+        if self.stamina <= 0:
+            return
+        elif self.age > random.randint(*self.lifespan):
             self.stamina = 0
             return
         elif ticks_passed % TICKS_PER_DAY == 0:
             self.age += 1
-        if self.stamina <= 0:
-            return
-        elif self.job:
+        if self.job:
             self.job.update()
             self.job.execute()
 
@@ -84,10 +85,22 @@ class BaseEntity(pygame.sprite.Sprite):
     def move(self, goal=()):
         # ToDo: make this more modular so inherited objects don't need to
         #       overwrite all of this
-        for danger in self.world.dangers:
-            if danger.rect.collidepoint(self.rect.center):
-                self.stamina = 0
-                return
+        def in_danger():
+            for danger in self.world.dangers:
+                if danger.rect.collidepoint(self.rect.center):
+                    return
+
+        def hitting_obstacle():
+            obstacles = pygame.sprite.spritecollide(self,
+                                                    self.world.obstacles,
+                                                    False)
+            for obstacle in obstacles:
+                if obstacle.level == self.current_level:
+                    return
+
+        if in_danger():
+            self.stamina = 0
+            return
         if goal:
             dist = [a - b for a, b in zip(goal, self.rect.center)]
             m = max(abs(dist[0]), abs(dist[1]))
@@ -101,39 +114,18 @@ class BaseEntity(pygame.sprite.Sprite):
         rel_px = rel_pos[0]*self.speed, rel_pos[1]*self.speed
         old_rect = self.rect
         self.rect.move_ip(*rel_px)
-        obstacles = pygame.sprite.spritecollide(self,
-                                                self.world.obstacles,
-                                                False)
-        for obstacle in obstacles:
-            if obstacle.level == self.current_level:
-                self.rect = old_rect
-                self.rand_rotate()
-                return
+        if hitting_obstacle():
+            self.rect = old_rect
+            self.rand_rotate()
+            return
         self.rotation = Degrees(self._rel_to_degree[rel_pos])
         self.on_move(self.rect.center)
-        # rect_pos = [x + y for x, y in zip(rel_px, self.rect.center)]
-        # self.rect.center = tuple(rect_pos)
-        # self.rotation = self._rel_to_degree[rel_pos]
-
         map_width = self.world.setup['map_size'][0]*TILE_SIZE
         map_height = self.world.setup['map_size'][1]*TILE_SIZE
-        # oob == out of bounds
-        oob_right = self.rect.right > map_width
-        oob_bottom = self.rect.bottom > map_height
-        oob_left = self.rect.left < 0
-        oob_top = self.rect.top < 0
-        if oob_right:
-            self.rect.right = map_width
-        if oob_bottom:
-            self.rect.bottom = map_height
-        if oob_left:
-            self.rect.left = 0
-        if oob_top:
-            self.rect.top = 0
-        if oob_right or oob_bottom or oob_left or oob_top:
+        if out_of_bounds(self.rect, map_width, map_height):
+            self.rect = old_rect
             self.rand_rotate(full_spin=True, forward=False)
         if self.resource:
-            print(self.rotation)
             try:
                 weight = self.resource.amount
             except AttributeError:
@@ -154,11 +146,11 @@ class BaseEntity(pygame.sprite.Sprite):
         if self.stamina <= 0:
             self.stamina = 0
 
-    def is_enemy(self, BaseEntity):
-        own_colony = BaseEntity.colony == self.colony
-        own_species = type(BaseEntity) == type(self)
-        is_dead = BaseEntity.stamina == 0
-        different_elevation = BaseEntity.inside != self.inside
+    def is_enemy(self, entity):
+        own_colony = entity.colony == self.colony
+        own_species = type(entity) == type(self)
+        is_dead = entity.stamina == 0
+        different_elevation = entity.inside != self.inside
         return not (own_colony or
                     own_species or
                     is_dead or
@@ -169,9 +161,9 @@ class BaseEntity(pygame.sprite.Sprite):
                                                 self.world.entities,
                                                 False)
         enemies = []
-        for BaseEntity in colliding:
-            if self.is_enemy(BaseEntity):
-                enemies.append(BaseEntity)
+        for entity in colliding:
+            if self.is_enemy(entity):
+                enemies.append(entity)
         return enemies
 
     def on_rotation(self, rotation):
