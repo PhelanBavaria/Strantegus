@@ -9,7 +9,7 @@ def toggle_scent_visible():
 
 
 keymap = {
-    (pygame.K_F3,): toggle_scent_visible
+    (pygame.K_F5,): toggle_scent_visible
 }
 
 def add(keys, action):

@@ -20,7 +20,6 @@ class Game:
         self.current_page = 'main_menu'
         self.pages = {}
         self.exit = False
-        self.clickables = {}
         self.keys_pressed = []
         keymap.add((pygame.K_ESCAPE,), self.quit)
 
@@ -32,6 +31,9 @@ class Game:
             if event.type == pygame.QUIT:
                 quit()
             elif event.type == pygame.KEYDOWN:
+                if self.gui.selected:
+                    if self.gui.selected.key_input(event.key):
+                        continue
                 if event.key not in self.keys_pressed:
                     self.keys_pressed.append(event.key)
             elif event.type == pygame.KEYUP:
@@ -39,10 +41,9 @@ class Game:
                     self.keys_pressed.remove(event.key)
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
-                for name, group in self.clickables.items():
-                    for clickable in group:
-                        if clickable.rect.collidepoint(mouse_pos):
-                            clickable.on_left_click()
+                for widget in self.gui.widgets:
+                    if widget.rect.collidepoint(mouse_pos):
+                        widget.select()
         for keys, action in keymap.keymap.items():
             if all([True if key in self.keys_pressed else False
                    for key in keys]):
@@ -61,14 +62,6 @@ class Game:
                     self.gui.draw_markers(world.markers)
                     if not world.current_tick % 250:
                         world.markers.update()
-                info_current_day = self.gui.font.render('Day:' + str(world.day), 1, ((10, 10, 10)))
-                info_current_tick = self.gui.font.render('Current Tick:' + str(world.current_tick), 1, ((10, 10, 10)))
-                info_speed_mod = self.gui.font.render('Speed Modifier:' + str(world.speed_mod), 1, ((10, 10, 10)))
-                info_current_level = self.gui.font.render('Current Level:' + world.current_level, 1, ((10, 10, 10)))
-                self.gui.draw_info(info_current_day, (10, 10))
-                self.gui.draw_info(info_current_tick, (10, 20))
-                self.gui.draw_info(info_speed_mod, (10, 30))
-                self.gui.draw_info(info_current_level, (10, 40))
                 self.gui.draw()
                 self.gui.update()
                 last_frame = time()
@@ -111,6 +104,6 @@ if __name__ == '__main__':
     print('Keymap:')
     for keys, action in keymap.keymap.items():
         print([pygame.key.name(key) for key in keys], action)
-    print(len(tuple(game.worlds[0].entities)), 'entities', tuple(game.worlds[0].entities))
+    print(len(tuple(game.worlds[0].entities)), 'entities')
     print('testing ends')
     sys.exit()

@@ -6,10 +6,11 @@ from util.load import load_image
 
 
 class GUI:
-    __slots__ = []
     pygame.init()
     pygame.display.set_caption('Strantegus')
-    screen = pygame.display.set_mode((1000, 500))
+    width = 1000
+    height = 500
+    screen = pygame.display.set_mode((width, height))
     icon = pygame.image.load('gfx/ant.jpg').convert_alpha()
     pygame.display.set_icon(icon)
     background = pygame.Surface(screen.get_size())
@@ -17,12 +18,16 @@ class GUI:
     background.fill((111, 11, 11))
     screen.blit(background, (0, 0))
     pygame.display.flip()
+    widgets = pygame.sprite.Group()
     elements = pygame.sprite.Group()
     font = pygame.font.Font('fonts/freesansbold.ttf', 10)
+    selected = None
 
     def draw(self, elements=None):
         if not elements:
             elements = self.elements
+            for widget in self.widgets:
+                widget.draw(self.screen)
         elements.draw(self.screen)
 
     def draw_info(self, info, pos):
